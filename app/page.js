@@ -494,6 +494,23 @@ export default function Home() {
 
       <footer className="site-foot">
         <span className="vv-hand brand-inline"><img src="/logo.png" alt="" className="brand-icon-sm" width="22" height="22" /> vidvisual</span>
+        <div className="foot-badge">
+          <a
+            href="https://tinylaunch.com"
+            target="_blank"
+            rel="noopener"
+            className="tinylaunch-badge"
+            title="Featured on TinyLaunch"
+          >
+            <img
+              src="https://tinylaunch.com/tinylaunch_badge_featured_on.svg"
+              alt="TinyLaunch Badge"
+              width="202"
+              height="61"
+              style={{ width: '202px', height: 'auto' }}
+            />
+          </a>
+        </div>
         <div id="support" className="foot-support">
           <a href="mailto:vidvisual.xyz@gmail.com?subject=Vid%20Visual%20Support%20Request">vidvisual.xyz@gmail.com</a>
         </div>
