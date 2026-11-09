@@ -494,12 +494,12 @@ export default function Home() {
 
       <footer className="site-foot">
         <span className="vv-hand brand-inline"><img src="/logo.png" alt="" className="brand-icon-sm" width="22" height="22" /> vidvisual</span>
-        <div className="foot-badge">
+        <div className="foot-badges">
           <a
             href="https://tinylaunch.com"
             target="_blank"
             rel="noopener"
-            className="tinylaunch-badge"
+            className="launch-badge tinylaunch-badge"
             title="Featured on TinyLaunch"
           >
             <img
@@ -508,6 +508,30 @@ export default function Home() {
               width="202"
               height="61"
               style={{ width: '202px', height: 'auto' }}
+            />
+          </a>
+          <a
+            href="https://vibecodinglist.com/projects/vidvisual-turn-long-youtube-videos-into-beautiful?utm_source=vcl_badge&utm_medium=builder_site&utm_campaign=listed_badge&utm_content=vidvisual-turn-long-youtube-videos-into-beautiful"
+            target="_blank"
+            rel="noopener"
+            className="launch-badge vcl-badge"
+            title="Featured on VibeCodingList"
+          >
+            <img
+              src="https://vibecodinglist.com/assets/embed-widget/featured-on-badge-light.png"
+              alt="Featured on VibeCodingList"
+              width="200"
+              height="51"
+              className="vcl-badge-light"
+              style={{ width: '200px', height: 'auto' }}
+            />
+            <img
+              src="https://vibecodinglist.com/assets/embed-widget/featured-on-badge-dark.png"
+              alt="Featured on VibeCodingList"
+              width="200"
+              height="51"
+              className="vcl-badge-dark"
+              style={{ width: '200px', height: 'auto' }}
             />
           </a>
         </div>
