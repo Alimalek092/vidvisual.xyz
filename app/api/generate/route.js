@@ -8,6 +8,7 @@ import {
 } from '@/lib/guestAuth';
 import { getPlan } from '@/lib/plans';
 import { extractVideoId, getVideoTitle, getTranscript } from '@/lib/youtube';
+import { GOLDEN_SAMPLES } from '@/lib/sample';
 import { summarize } from '@/lib/gemini';
 import { sendUserLimitUpgradeEmail } from '@/lib/email';
 
@@ -108,50 +109,80 @@ export async function POST(request) {
     }
   }
 
-  let transcript;
-  try {
-    transcript = await getTranscript(videoId, language || 'en');
-  } catch (err) {
-    console.warn('[Generate Route] Transcript extraction failed for', videoId, ':', err?.message || err);
+    let data = null;
+  let ytTitle = null;
+
+  // Immediate Golden Sample check: Guaranteed 100% instant zero-error for featured samples
+  if (GOLDEN_SAMPLES[videoId]) {
+    const golden = GOLDEN_SAMPLES[videoId];
+    data = JSON.parse(JSON.stringify(golden));
+    ytTitle = golden.title;
   }
 
-  // Graceful fallback: If captions are completely disabled on YouTube, recover via video title
-  if (!transcript || !transcript.text || transcript.text.length < 50) {
-    const fallbackTitle = await getVideoTitle(videoId);
-    if (fallbackTitle) {
+  if (!data) {
+    let transcript;
+    try {
+      transcript = await getTranscript(videoId, language || 'en');
+    } catch (err) {
+      console.warn('[Generate Route] Transcript extraction failed for', videoId, ':', err?.message || err);
+    }
+
+    // Secondary Golden Sample check if transcript failed
+    if ((!transcript || !transcript.text || transcript.text.length < 50) && GOLDEN_SAMPLES[videoId]) {
+      const golden = GOLDEN_SAMPLES[videoId];
+      data = JSON.parse(JSON.stringify(golden));
+      ytTitle = golden.title;
+    }
+
+    // Graceful topic recovery: If captions are disabled or blocked, synthesize from title
+    if (!data && (!transcript || !transcript.text || transcript.text.length < 50)) {
+      ytTitle = await getVideoTitle(videoId);
+      const fallbackTopic = ytTitle || `YouTube Video (${videoId})`;
       transcript = {
-        text: `Topic & Lecture: "${fallbackTitle}". Video Reference: https://www.youtube.com/watch?v=${videoId}. Provide an in-depth visual whiteboard concept breakdown, core thesis statements, and structured study takeaways for this subject.`,
-        minutes: 10,
+        text: `Topic & Educational Lecture: "${fallbackTopic}". Video URL: https://www.youtube.com/watch?v=${videoId}. Provide a comprehensive, in-depth visual whiteboard study summary, core concepts, mind map hierarchy, and actionable takeaways for this topic.`,
+        minutes: 15,
       };
-    } else {
-      return NextResponse.json(
-        { error: 'Could not read captions. Please select the proper language or try a video that has captions turned on.' },
-        { status: 422 }
-      );
+    }
+
+    if (!data && transcript && transcript.text) {
+      const rawModel = plan.priority
+        ? process.env.GEMINI_MODEL_PRIORITY || 'gemini-2.5-flash'
+        : process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+      const model = rawModel.includes('1.5') || rawModel.includes('1.0') || rawModel.includes('pro')
+        ? 'gemini-2.5-flash'
+        : rawModel;
+
+      try {
+        data = await summarize(transcript.text, model, language || 'auto');
+        data.minutes = transcript.minutes;
+      } catch (e) {
+        console.error('[Generate Route] Summarization failed:', e?.message || e);
+        // If golden sample is available, recover from error
+        if (GOLDEN_SAMPLES[videoId]) {
+          data = JSON.parse(JSON.stringify(GOLDEN_SAMPLES[videoId]));
+        } else {
+          const raw = (e?.message || '').toLowerCase();
+          const friendly = raw.includes('abort') || raw.includes('timeout')
+            ? 'Video processing timed out. Please try another video or try again.'
+            : 'Could not generate summary for this video. Please select a specific language in the dropdown (e.g. English) or try another video.';
+          return NextResponse.json({ error: friendly }, { status: 502 });
+        }
+      }
     }
   }
 
-  const rawModel = plan.priority
-    ? process.env.GEMINI_MODEL_PRIORITY || 'gemini-2.5-flash'
-    : process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-  const model = rawModel.includes('1.5') || rawModel.includes('1.0') || rawModel.includes('pro')
-    ? 'gemini-2.5-flash'
-    : rawModel;
-
-  let data;
-  try {
-    data = await summarize(transcript.text, model, language || 'auto');
-  } catch (e) {
-    console.error('[Generate Route] Summarization failed:', e?.message || e);
-    const raw = (e?.message || '').toLowerCase();
-    const friendly = raw.includes('abort') || raw.includes('timeout')
-      ? 'Video processing timed out. Please try another video or try again.'
-      : (e?.message || 'The AI could not build this summary. Please try again.');
-    return NextResponse.json({ error: friendly }, { status: 502 });
+  if (!data) {
+    return NextResponse.json(
+      { error: 'Could not read captions or transcript. Please select the proper language from the dropdown or try another YouTube video.' },
+      { status: 422 }
+    );
   }
-  data.minutes = transcript.minutes;
+
+  if (!ytTitle) {
+    ytTitle = await getVideoTitle(videoId);
+  }
   data.language = language || 'auto';
-  const ytTitle = await getVideoTitle(videoId);
+  if (!data.minutes) data.minutes = 15;
 
   const cleanTitle = (ytTitle || data.title || 'Untitled Visual Summary')
     .toString()

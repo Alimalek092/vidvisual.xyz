@@ -199,7 +199,7 @@ export default function HomeHeroGenerator() {
               <button
                 type="button"
                 className="quick-sample-chip"
-                onClick={() => setUrl('https://www.youtube.com/watch?v=a9yO-K8mwL0')}
+                onClick={() => setUrl('https://www.youtube.com/watch?v=LG53Vxum0as')}
                 disabled={busy}
               >
                 🎙️ Huberman (Focus)
@@ -215,7 +215,7 @@ export default function HomeHeroGenerator() {
               <button
                 type="button"
                 className="quick-sample-chip"
-                onClick={() => setUrl('https://www.youtube.com/watch?v=zYIER3vGdB8')}
+                onClick={() => setUrl('https://www.youtube.com/watch?v=jZzyERW7h1A')}
                 disabled={busy}
               >
                 💻 CS50 (Algorithms)
@@ -297,8 +297,44 @@ export default function HomeHeroGenerator() {
 
         {/* Error message */}
         {error ? (
-          <div className="msg msg-error" role="alert" style={{ marginTop: '14px', fontSize: '0.88rem' }}>
-            <p style={{ margin: 0 }}>{error}</p>
+          <div
+            className="msg msg-error"
+            role="alert"
+            style={{
+              marginTop: '14px',
+              fontSize: '0.88rem',
+              borderRadius: '12px',
+              padding: '12px 16px',
+              border: '2px solid rgba(239, 68, 68, 0.4)',
+              background: 'rgba(239, 68, 68, 0.06)',
+            }}
+          >
+            <p style={{ margin: '0 0 8px', fontWeight: 600 }}>{error}</p>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginTop: '6px' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>💡 Try this:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setLanguage('en');
+                  setError('');
+                }}
+                className="btn btn-sm"
+                style={{ fontSize: '0.78rem', padding: '4px 10px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+              >
+                🌐 Select English
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setUrl('https://www.youtube.com/watch?v=LG53Vxum0as');
+                  setError('');
+                }}
+                className="btn btn-sm"
+                style={{ fontSize: '0.78rem', padding: '4px 10px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+              >
+                🎙️ Try Huberman Sample
+              </button>
+            </div>
           </div>
         ) : null}
 
