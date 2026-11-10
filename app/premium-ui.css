@@ -751,3 +751,220 @@ html[data-theme='dark'] .vcl-badge:hover .vcl-badge-dark {
     height: auto !important;
   }
 }
+
+
+/* ========================================================================
+   21. WENSITY UI PRIMITIVES & COMPONENT POLISH (ui.wensity.com standard)
+   ------------------------------------------------------------------------
+   Full A-to-Z elevation:
+   - Wensity Form Field glow focus rings
+   - Wensity Button Shimmer & active tactile feedback
+   - Wensity Segmented Switcher smooth pill physics
+   - Wensity Interactive Chip hover elevation
+   - Wensity Accordion open state lighting & chevron spring
+   - Wensity Card hover sheens & corner radiance
+   - Wensity Accessible focus rings across all interactive controls
+   ======================================================================== */
+
+/* Wensity Form Field & Focus Glow */
+.hero-copy form input[type="url"] {
+  transition: border-color 0.2s ease, box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+.hero-copy form input[type="url"]:hover:not(:disabled):not(:focus) {
+  border-color: var(--blue) !important;
+}
+
+.hero-copy form input[type="url"]:focus {
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 0 3.5px rgba(43, 89, 224, 0.22), 4px 4px 0 var(--ink) !important;
+  outline: none !important;
+}
+
+html[data-theme='dark'] .hero-copy form input[type="url"]:focus {
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 0 3.5px rgba(122, 162, 255, 0.3), 0 0 24px rgba(122, 162, 255, 0.18) !important;
+}
+
+/* Wensity Language Dropdown Polish */
+.hero-copy form select {
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-copy form select:hover:not(:disabled) {
+  border-color: var(--blue);
+}
+
+.hero-copy form select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(43, 89, 224, 0.2);
+  outline: none;
+}
+
+/* Wensity Shimmering Action Button */
+.hero-copy form button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.hero-copy form button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0 var(--ink);
+  filter: brightness(1.04);
+}
+
+.hero-copy form button[type="submit"]:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.hero-copy form button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.24) 50%, transparent 60%);
+  transform: rotate(25deg);
+  animation: wensityButtonShimmer 6.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+@keyframes wensityButtonShimmer {
+  0%, 75% { transform: rotate(25deg) translateX(-160%); }
+  92%, 100% { transform: rotate(25deg) translateX(160%); }
+}
+
+/* Wensity Segmented Format Switcher */
+.seg {
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.seg:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.seg button {
+  position: relative;
+  transition: background-color 0.2s ease, color 0.18s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.seg button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Wensity Sample Video Interactive Chips */
+.quick-sample-chip {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+}
+
+.quick-sample-chip:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 2.5px 2.5px 0 var(--ink) !important;
+  border-color: var(--blue) !important;
+  color: var(--blue) !important;
+}
+
+html[data-theme='dark'] .quick-sample-chip:hover {
+  box-shadow: 0 0 14px rgba(122, 162, 255, 0.25) !important;
+}
+
+/* Wensity Bento Card Corner Accents & Elevation */
+.card,
+.stat-pill,
+.plan,
+.podcast-timeline-item {
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
+}
+
+.card:hover,
+.plan:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 7px 0 var(--ink);
+}
+
+html[data-theme='dark'] .card:hover,
+html[data-theme='dark'] .plan:hover {
+  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.6), 0 0 24px rgba(122, 162, 255, 0.12);
+}
+
+/* Wensity Interactive FAQ Details & Chevron Spring */
+.faq details {
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.faq details:hover {
+  border-color: var(--blue);
+  transform: translateY(-1px);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.faq details[open] {
+  border-color: var(--blue) !important;
+  box-shadow: 4px 4px 0 var(--ink);
+  background: var(--paper);
+}
+
+html[data-theme='dark'] .faq details[open] {
+  box-shadow: 0 0 20px rgba(122, 162, 255, 0.15), 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.faq details summary {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  transition: color 0.18s ease;
+}
+
+.faq details summary:hover {
+  color: var(--blue);
+}
+
+/* Wensity Live Status Pulsing Indicator */
+.status-indicator-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: wensityPulseDot 2s infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes wensityPulseDot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Wensity Popular Plan Ambient Aura */
+.plan-hot {
+  position: relative;
+  border-color: var(--blue) !important;
+}
+
+.plan-hot::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(135deg, rgba(43, 89, 224, 0.3), transparent 60%, rgba(122, 90, 248, 0.25));
+  z-index: -1;
+  pointer-events: none;
+}
