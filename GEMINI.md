@@ -23,3 +23,7 @@
 ## 5. Competitor Intelligence & SaaS Inspiration
 - Continuously study and take inspiration from top-tier competitors and SaaS leaders (e.g., NoteGPT, Eightify, Video Highlight, BibiGPT).
 - Adopt proven SaaS conversion patterns, intuitive UX, and clean layouts while always highlighting `vidvisual`'s unique whiteboard visual notes, spatial concept cards, and mind maps.
+
+## 6. UI Component Library Standard (Wensity UI)
+- **Primary Component System**: Whenever building, refining, or enhancing UI components, interactive blocks, micro-interactions, or primitives, consult and leverage **Wensity UI** (`ui.wensity.com`) via the Wensity MCP server (`@wensity/mcp@latest`) and CLI (`npx wensity`).
+- **Source-First & High Craftsmanship**: Ensure any added components are cleanly integrated into the codebase with full support for light and dark modes, high-contrast readability, responsive breakpoints, and neo-brutalist / modern SaaS polish.

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "wensity": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@wensity/mcp@latest"
+      ]
+    }
+  }
+}
