@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase, authFetch } from '@/lib/supabaseClient';
 import { getPlan } from '@/lib/plans';
 import Visual, { THEMES } from '@/components/Visual';
+import { GOLDEN_SAMPLES } from '@/lib/sample';
 import SupportModal from '@/components/SupportModal';
 import UpgradeModal from '@/components/UpgradeModal';
 
@@ -34,12 +35,57 @@ export default function SummaryPage({ params }) {
       if (guestId) headers['x-guest-id'] = guestId;
 
       try {
+        // Direct client-side Golden Sample fallback
+        if (GOLDEN_SAMPLES && GOLDEN_SAMPLES[params.id]) {
+          const sampleData = GOLDEN_SAMPLES[params.id];
+          return setState({
+            summary: {
+              id: params.id,
+              video_id: params.id,
+              video_url: `https://www.youtube.com/watch?v=${params.id}`,
+              title: sampleData.title,
+              format: 'whiteboard',
+              data: sampleData,
+            },
+            plan: getPlan('free'),
+            isGuest: !sessionData?.session,
+          });
+        }
+
         const res = sessionData?.session
           ? await authFetch(`/api/summaries/${params.id}`)
           : await fetch(`/api/summaries/${params.id}`, { headers });
 
-        const json = await res.json();
-        if (!res.ok) return setState({ error: json.error });
+        const json = await res.json().catch(() => null);
+
+        if (!res.ok || !json) {
+          // Check local guest history if API is temporarily unavailable
+          if (typeof window !== 'undefined') {
+            try {
+              const history = JSON.parse(localStorage.getItem('vv_guest_history') || '[]');
+              const matched = history.find((h) => h.id === params.id);
+              if (matched && matched.data) {
+                return setState({
+                  summary: matched,
+                  plan: getPlan('free'),
+                  isGuest: true,
+                });
+              }
+            } catch {}
+          }
+          return setState({
+            error: json?.error || 'Could not load visual notes. Please try refreshing.',
+            isGuest: !sessionData?.session,
+          });
+        }
+
+        if (!json.summary) {
+          return setState({
+            error: 'Could not find this visual summary. Please try generating it again.',
+            isGuest: !sessionData?.session,
+          });
+        }
+
         setState({
           summary: json.summary,
           plan: getPlan(json.plan),
@@ -48,18 +94,55 @@ export default function SummaryPage({ params }) {
           guestLimit: json.guestLimit || 3,
         });
       } catch (err) {
-        setState({ error: err.message || 'Could not load summary.' });
+        setState({
+          error: 'Connection interrupted while loading notes. Please refresh the page.',
+          isGuest: !sessionData?.session,
+        });
       }
     })();
   }, [params.id]);
 
   if (state.loading) return <main className="dash"><p className="muted">Loading visual notes…</p></main>;
   if (state.error) return (
-    <main className="dash">
-      <p className="msg msg-error">{state.error}</p>
-      <Link href={state.isGuest ? '/' : '/dashboard'}>
-        {state.isGuest ? 'Back to generator' : 'Back to library'}
-      </Link>
+    <main className="dash" style={{ maxWidth: '640px', margin: '48px auto', padding: '0 16px' }}>
+      <div
+        className="msg msg-error"
+        style={{
+          borderRadius: '16px',
+          padding: '22px 24px',
+          background: 'rgba(43, 89, 224, 0.06)',
+          border: '2px solid var(--blue)',
+          color: 'var(--ink)',
+          boxShadow: '4px 4px 0 var(--ink)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+          <span style={{ fontSize: '1.4rem' }}>💡</span>
+          <h2 className="vv-hand" style={{ margin: 0, fontSize: '1.45rem' }}>
+            Could not open visual notes
+          </h2>
+        </div>
+        <p style={{ margin: '0 0 16px', color: 'var(--ink-soft)', fontSize: '0.92rem', lineHeight: 1.5 }}>
+          {state.error}
+        </p>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="btn btn-primary btn-sm"
+            style={{ cursor: 'pointer' }}
+          >
+            🔄 Refresh Notes
+          </button>
+          <Link
+            href={state.isGuest ? '/' : '/dashboard'}
+            className="btn btn-sm"
+            style={{ background: 'var(--paper)', border: '1.5px solid var(--ink)', textDecoration: 'none' }}
+          >
+            {state.isGuest ? '🏠 Back to Generator' : '📚 Back to Library'}
+          </Link>
+        </div>
+      </div>
     </main>
   );
 
