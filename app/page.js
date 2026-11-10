@@ -2,7 +2,7 @@ import { IconBolt, IconBrain, IconNotes, IconRefresh, IconMic, IconGrad, IconBri
 import SlidingTopicTicker from '@/components/SlidingTopicTicker';
 import WensityInteractivePlayground from '@/components/WensityInteractivePlayground';
 import { WensityValueBento, WensityStepJourney, WensityAudienceBento } from '@/components/WensityBento';
-import { TextHighlight, OrbitGlowButton, MorphingBlob, WensityLiveStatus, WensityAudioWaveform, WensityComparisonMatrix } from '@/components/WensityComponents';
+import { TextHighlight, OrbitGlowButton, MorphingBlob, WensityAudioWaveform, WensityComparisonMatrix } from '@/components/WensityComponents';
 import Link from 'next/link';
 import BrandLogo from '@/components/BrandLogo';
 import Visual from '@/components/Visual';
@@ -147,7 +147,6 @@ export default function Home() {
       <header className="hero">
         <MorphingBlob size={450} colors={['#2b59e0', '#7a5af8', '#23996b']} opacity={0.16} blur={65} style={{ top: '-10%', left: '15%' }} />
         <div className="hero-copy">
-          <WensityLiveStatus latency="20s" model="Gemini 2.5 Flash" />
           <div className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '999px', background: 'rgba(43, 89, 224, 0.1)', color: 'var(--blue)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '14px', border: '1.5px solid var(--blue)', flexWrap: 'wrap' }}>
             <span><span className="status-indicator-dot" />⚡ Under 20 Seconds</span>
             <span>·</span>
