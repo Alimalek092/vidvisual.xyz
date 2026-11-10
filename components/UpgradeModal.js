@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 
 function calculateMondayReset() {
@@ -36,6 +37,8 @@ export default function UpgradeModal({
   resetInfo: serverResetInfo,
   reason = 'limit',
 }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const [email, setEmail] = useState('');
   const [sendingEmail, setSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -52,7 +55,7 @@ export default function UpgradeModal({
     return () => clearInterval(interval);
   }, []);
 
-  if (!open) return null;
+  if (!open || !mounted || typeof document === 'undefined') return null;
 
   const resetData = serverResetInfo || clientReset || calculateMondayReset();
 
@@ -105,7 +108,7 @@ export default function UpgradeModal({
 
   const isExportReason = reason === 'export';
 
-  return (
+  return createPortal(
     <div
       className="modal-backdrop"
       onClick={onClose}
@@ -494,6 +497,7 @@ export default function UpgradeModal({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

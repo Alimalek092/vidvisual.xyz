@@ -40,6 +40,11 @@ export default function HomeHeroGenerator() {
     e.preventDefault();
     if (!url.trim()) return;
 
+    if (hasHitLimit) {
+      setShowUpgradeModal(true);
+      return;
+    }
+
     setError('');
     setBusy(true);
     setStepText('🔍 Reading video transcript & captions…');
@@ -276,7 +281,13 @@ export default function HomeHeroGenerator() {
 
           {/* Action Button */}
           <button
-            type="submit"
+            type={hasHitLimit ? "button" : "submit"}
+            onClick={(e) => {
+              if (hasHitLimit) {
+                e.preventDefault();
+                setShowUpgradeModal(true);
+              }
+            }}
             className="btn btn-primary btn-lg"
             disabled={busy}
             style={{ width: '100%', fontSize: '1.08rem', padding: '14px 24px', fontWeight: 700, cursor: busy ? 'wait' : 'pointer' }}

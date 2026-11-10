@@ -1,7 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function SupportModal({ open, onClose }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -12,7 +15,7 @@ export default function SupportModal({ open, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open || !mounted || typeof document === 'undefined') return null;
 
   async function copyEmail() {
     try {
@@ -24,7 +27,7 @@ export default function SupportModal({ open, onClose }) {
     }
   }
 
-  return (
+  return createPortal(
     <div
       className="modal-backdrop"
       onClick={onClose}
@@ -68,6 +71,7 @@ export default function SupportModal({ open, onClose }) {
           We typically reply within 24 hours. For payment or billing queries, please include your registered email.
         </p>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
