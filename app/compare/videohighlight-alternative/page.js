@@ -37,7 +37,7 @@ const FAQ_VIDEOHIGHLIGHT = [
   ],
   [
     'Is vidvisual free to use compared to Video Highlight?',
-    'Yes! vidvisual gives every visitor 3 free visual summaries every week with no credit card or account registration required. Paid plans start at just $9/month for power users.',
+    'Yes! vidvisual gives every visitor 3 free visual summaries every week with no credit card or account registration required. Paid plans start at just $1.99 one-time (was $4) or $4.99/month (was $9) for power users.',
   ],
   [
     'Can I export notes to Notion, Obsidian, and GoodNotes?',

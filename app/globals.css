@@ -196,6 +196,133 @@ html[data-theme='dark'] .plan-hot { background: #17223b; border-color: var(--blu
 .plan-tag-value { background: var(--green); left: auto; right: 16px; }
 .plan-value { border-color: var(--green); }
 .plan-price { margin: 0; } .plan-price strong { font-size: 2.4rem; color: var(--ink); } .plan-price span { color: var(--ink-soft); }
+.plan-starter { border-color: #f59e0b; }
+
+/* High-Converting Pricing Psychology Styles */
+.pricing-urgency-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.12));
+  border: 2px dashed #ef4444;
+  border-radius: 999px;
+  padding: 8px 20px;
+  margin: 0 auto 16px;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 2px 2px 0 rgba(239, 68, 68, 0.15);
+  max-width: 95%;
+  text-align: center;
+}
+.pricing-urgency-flame {
+  display: inline-block;
+  font-size: 1.1rem;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.plan-price-block {
+  margin: 4px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.plan-anchor-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.plan-original-price {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+.plan-strike-text {
+  position: relative;
+  z-index: 1;
+}
+.plan-red-cut {
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  width: calc(100% + 8px);
+  height: 18px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+.plan-save-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #dc2626;
+  color: #ffffff;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+.plan-save-chip.chip-amber {
+  background: #d97706;
+  color: #fff;
+}
+.plan-save-chip.chip-blue {
+  background: var(--blue);
+  color: #fff;
+}
+.plan-save-chip.chip-green {
+  background: #16a34a;
+  color: #fff;
+}
+.plan-current-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.plan-now-prefix {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+}
+.plan-current-amount {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.plan-period {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.plan-unit-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin-top: 2px;
+}
+html[data-theme='dark'] .plan-original-price {
+  color: #94a3b8;
+}
+html[data-theme='dark'] .plan-unit-sub {
+  color: #4ade80;
+}
+html[data-theme='dark'] .pricing-urgency-banner {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #f87171;
+  color: #f8fafc;
+}
 .plan ul { list-style: none; padding: 0; margin: 4px 0 12px; display: grid; gap: 8px; flex: 1; }
 .plan ul li { color: var(--ink); }
 .plan li::before { content: '✓'; color: var(--green); font-weight: 800; margin-right: 8px; }

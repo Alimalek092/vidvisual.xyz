@@ -97,7 +97,7 @@ export async function POST(request) {
 
       return NextResponse.json(
         {
-          error: `You reached your weekly allowance (${used}/${plan.weekly}). Free allowances recharge on Monday at 00:00 UTC (${resetInfo.countdownText} remaining). Grab a 30-Summary Pack ($1.99 one-time) or Pro to keep generating!`,
+          error: `You reached your weekly allowance (${used}/${plan.weekly}). Free allowances recharge on Monday at 00:00 UTC (${resetInfo.countdownText} remaining). Grab a 30-Summary Pack ($1.99 one-time, was $4) or Pro ($4.99/mo, was $9) to keep generating!`,
           code: 'LIMIT',
           used,
           limit: plan.weekly,

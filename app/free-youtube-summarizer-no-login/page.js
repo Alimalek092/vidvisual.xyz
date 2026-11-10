@@ -52,7 +52,7 @@ const FAQ_NOLOGIN = [
   ],
   [
     'What happens when I reach my 3 free summaries?',
-    'When you use your 3 free summaries for the week, you can either upgrade to a Pro plan (starting at $9/month for 50 weekly summaries and vector PDF exports) or simply wait until your quota recharges on Monday.',
+    'When you use your 3 free summaries for the week, you can either upgrade to a Pro plan (starting at $4.99/month, slashed from $9, for 50 weekly summaries and vector PDF exports) or grab a $1.99 pack (was $4), or simply wait until your quota recharges on Monday.',
   ],
   [
     'Do I need to install a Chrome extension to use vidvisual?',

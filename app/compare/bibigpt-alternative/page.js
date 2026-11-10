@@ -37,7 +37,7 @@ const FAQ_BIBIGPT = [
   ],
   [
     'Is vidvisual free to use compared to BibiGPT?',
-    'Yes! vidvisual gives every user 3 full visual summaries every week with zero credit card or registration required. Paid plans start at just $9/month with HD PNG and vector PDF exports.',
+    'Yes! vidvisual gives every user 3 full visual summaries every week with zero credit card or registration required. Paid plans start at just $1.99 one-time (was $4) or $4.99/month (was $9) with HD PNG and vector PDF exports.',
   ],
   [
     'Can I translate international videos like BibiGPT does?',

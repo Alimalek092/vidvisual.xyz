@@ -132,7 +132,7 @@ export default function UpgradeModal({
           background: 'var(--paper)',
           border: '3px solid var(--ink)',
           borderRadius: '22px',
-          maxWidth: '640px',
+          maxWidth: '840px',
           width: '100%',
           maxHeight: '94vh',
           overflowY: 'auto',
@@ -186,7 +186,7 @@ export default function UpgradeModal({
               </strong>
             </div>
             <p style={{ margin: 0, color: 'var(--ink)', fontSize: '0.9rem', lineHeight: 1.45 }}>
-              Free accounts include on-screen viewing and standard JPG. Unlock clean, unwatermarked high-res PDFs for Notion, GoodNotes, or printing with our $1.99 Starter Pass or Pro.
+              Free accounts include standard web preview. Unlock clean, unwatermarked high-res PDFs for Notion, GoodNotes, or printing with our limited-time $1.99 Starter Pass (was $4) or Pro ($4.99/mo).
             </p>
           </div>
         ) : (
@@ -215,13 +215,30 @@ export default function UpgradeModal({
               <span>({resetData.formattedDate})</span>
             </div>
             <p style={{ margin: '8px 0 0', color: '#7f1d1d', fontSize: '0.88rem', fontWeight: 600 }}>
-              👉 Want to generate more right now? Grab the $1.99 pass or upgrade to Pro below!
+              👉 Want to generate more right now? Grab the limited-time $1.99 pass (was $4) or upgrade to Pro ($4.99/mo) below!
             </p>
           </div>
         )}
 
-        {/* Modal Headline */}
+        {/* Modal Headline & Urgency Banner */}
         <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.12))',
+              border: '1.5px dashed #ef4444',
+              borderRadius: '999px',
+              padding: '5px 14px',
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: '#dc2626',
+              marginBottom: '10px',
+            }}
+          >
+            <span>🔥 LIMITED-TIME DISCOUNT: Slashed up to 50% for early users!</span>
+          </div>
           <h2 className="vv-hand" style={{ fontSize: '2rem', margin: '0 0 8px', lineHeight: 1.2, color: 'var(--ink)' }}>
             Choose the option that fits your study flow
           </h2>
@@ -283,15 +300,15 @@ export default function UpgradeModal({
           </div>
         </div>
 
-        {/* 2 Options Grid: $1.99 Starter vs $9/mo Pro */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px', marginBottom: '18px' }}>
+        {/* 3 High-Psychology Options Grid: $1.99 Starter vs $4.99/mo Pro vs $12.99/mo Unlimited */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '14px', marginBottom: '18px' }}>
           {/* Card 1: $1.99 30-Summary Pack (One-Time) */}
           <div
             style={{
               background: 'var(--board)',
               border: '2.5px solid #f59e0b',
               borderRadius: '16px',
-              padding: '18px',
+              padding: '16px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -301,22 +318,42 @@ export default function UpgradeModal({
           >
             <div>
               <div style={{ display: 'inline-block', background: '#f59e0b', color: '#1e293b', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', textTransform: 'uppercase', marginBottom: '6px' }}>
-                ⚡ ONE-TIME • 30 SUMMARIES
+                ⚡ ONE-TIME • 50% OFF
               </div>
-              <h3 style={{ margin: '0 0 4px', fontSize: '1.25rem', color: 'var(--ink)', fontWeight: 800 }}>
+              <h3 style={{ margin: '0 0 4px', fontSize: '1.2rem', color: 'var(--ink)', fontWeight: 800 }}>
                 30-Summary Pack
               </h3>
-              <div style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', marginBottom: '10px' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', marginBottom: '8px' }}>
                 Prepaid pack of 30 summaries — counts down as you use them.
               </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '1.9rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>$1.99</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', fontWeight: 600 }}>/one-time</span>
+
+              {/* Price with Red Cut & Strikethrough Anchor */}
+              <div style={{ margin: '4px 0 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '1.1rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
+                    <span>$4</span>
+                    <svg style={{ position: 'absolute', top: '50%', left: '-3px', right: '-3px', width: 'calc(100% + 6px)', height: '16px', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 100 20" preserveAspectRatio="none">
+                      <line x1="0" y1="18" x2="100" y2="2" stroke="#dc2626" strokeWidth="4" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <span style={{ background: '#d97706', color: '#fff', fontSize: '0.72rem', fontWeight: 900, padding: '2px 7px', borderRadius: '6px', letterSpacing: '0.04em' }}>
+                    50% OFF
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', color: '#d97706' }}>Now only</span>
+                  <span style={{ fontSize: '2.1rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>$1.99</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--ink-soft)', fontWeight: 600 }}>/one-time</span>
+                </div>
+                <div style={{ fontSize: '0.76rem', color: '#16a34a', fontWeight: 700, marginTop: '3px' }}>
+                  Just ~$0.06 / summary • Never expires
+                </div>
               </div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 16px', display: 'grid', gap: '7px', fontSize: '0.85rem' }}>
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 14px', display: 'grid', gap: '6px', fontSize: '0.82rem' }}>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
-                  <span><strong>30 summaries</strong> (deducts 1 per generation)</span>
+                  <span><strong>30 summaries</strong> (counts down)</span>
                 </li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
@@ -328,7 +365,7 @@ export default function UpgradeModal({
                 </li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
-                  <span>Works with your 3 free weekly summaries</span>
+                  <span>Instant activation</span>
                 </li>
               </ul>
             </div>
@@ -339,8 +376,8 @@ export default function UpgradeModal({
                 borderColor: gateway === 'dodo' ? '#15803d' : '#d97706',
                 color: gateway === 'dodo' ? '#fff' : '#1e293b',
                 fontWeight: 800,
-                fontSize: '0.95rem',
-                padding: '12px 14px',
+                fontSize: '0.9rem',
+                padding: '11px 12px',
                 width: '100%',
                 cursor: 'pointer',
               }}
@@ -355,35 +392,55 @@ export default function UpgradeModal({
             </button>
           </div>
 
-          {/* Card 2: $9/mo Pro */}
+          {/* Card 2: $4.99/mo Pro (Was $9) */}
           <div
             style={{
               background: 'var(--board)',
               border: '2.5px solid var(--blue)',
               borderRadius: '16px',
-              padding: '18px',
+              padding: '16px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              boxShadow: '3px 3px 0 var(--blue)',
+              boxShadow: '4px 4px 0 var(--blue)',
               position: 'relative',
             }}
           >
             <div>
               <div style={{ display: 'inline-block', background: 'var(--blue)', color: '#fff', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', textTransform: 'uppercase', marginBottom: '6px' }}>
-                ⭐ MOST POPULAR
+                ⭐ MOST POPULAR • 45% OFF
               </div>
-              <h3 style={{ margin: '0 0 4px', fontSize: '1.25rem', color: 'var(--ink)', fontWeight: 800 }}>
+              <h3 style={{ margin: '0 0 4px', fontSize: '1.2rem', color: 'var(--ink)', fontWeight: 800 }}>
                 vidvisual Pro
               </h3>
-              <div style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', marginBottom: '10px' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', marginBottom: '8px' }}>
                 For students, creators &amp; lifelong learners
               </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '1.9rem', fontWeight: 900, color: 'var(--blue)', lineHeight: 1 }}>$9</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', fontWeight: 600 }}>/month</span>
+
+              {/* Price with Red Cut & Strikethrough Anchor */}
+              <div style={{ margin: '4px 0 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '1.1rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
+                    <span>$9</span>
+                    <svg style={{ position: 'absolute', top: '50%', left: '-3px', right: '-3px', width: 'calc(100% + 6px)', height: '16px', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 100 20" preserveAspectRatio="none">
+                      <line x1="0" y1="18" x2="100" y2="2" stroke="#dc2626" strokeWidth="4" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <span style={{ background: 'var(--blue)', color: '#fff', fontSize: '0.72rem', fontWeight: 900, padding: '2px 7px', borderRadius: '6px', letterSpacing: '0.04em' }}>
+                    SAVE 45%
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--blue)' }}>Now only</span>
+                  <span style={{ fontSize: '2.1rem', fontWeight: 900, color: 'var(--blue)', lineHeight: 1 }}>$4.99</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--ink-soft)', fontWeight: 600 }}>/month</span>
+                </div>
+                <div style={{ fontSize: '0.76rem', color: '#16a34a', fontWeight: 700, marginTop: '3px' }}>
+                  Less than $1.25/week • 50 summaries/wk
+                </div>
               </div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 16px', display: 'grid', gap: '7px', fontSize: '0.85rem' }}>
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 14px', display: 'grid', gap: '6px', fontSize: '0.82rem' }}>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
                   <span><strong>50 summaries / week</strong></span>
@@ -406,8 +463,8 @@ export default function UpgradeModal({
               className="btn btn-primary btn-wide"
               style={{
                 fontWeight: 800,
-                fontSize: '0.95rem',
-                padding: '12px 14px',
+                fontSize: '0.9rem',
+                padding: '11px 12px',
                 width: '100%',
                 cursor: 'pointer',
                 background: gateway === 'dodo' ? '#16a34a' : undefined,
@@ -419,8 +476,98 @@ export default function UpgradeModal({
               {busyPlan === 'pro'
                 ? 'Opening checkout…'
                 : gateway === 'dodo'
-                ? 'Upgrade via UPI ($9/mo) →'
-                : 'Upgrade to Pro ($9/mo) →'}
+                ? 'Upgrade via UPI ($4.99/mo) →'
+                : 'Upgrade to Pro ($4.99/mo) →'}
+            </button>
+          </div>
+
+          {/* Card 3: $12.99/mo Unlimited (Was $19) */}
+          <div
+            style={{
+              background: 'var(--board)',
+              border: '2.5px solid var(--green)',
+              borderRadius: '16px',
+              padding: '16px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              boxShadow: '3px 3px 0 var(--green)',
+              position: 'relative',
+            }}
+          >
+            <div>
+              <div style={{ display: 'inline-block', background: 'var(--green)', color: '#fff', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', textTransform: 'uppercase', marginBottom: '6px' }}>
+                👑 BEST VALUE • SAVE $6
+              </div>
+              <h3 style={{ margin: '0 0 4px', fontSize: '1.2rem', color: 'var(--ink)', fontWeight: 800 }}>
+                Unlimited
+              </h3>
+              <div style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', marginBottom: '8px' }}>
+                For researchers, power learners &amp; teams
+              </div>
+
+              {/* Price with Red Cut & Strikethrough Anchor */}
+              <div style={{ margin: '4px 0 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '1.1rem', fontWeight: 800, color: 'var(--ink-soft)' }}>
+                    <span>$19</span>
+                    <svg style={{ position: 'absolute', top: '50%', left: '-3px', right: '-3px', width: 'calc(100% + 6px)', height: '16px', transform: 'translateY(-50%)', pointerEvents: 'none' }} viewBox="0 0 100 20" preserveAspectRatio="none">
+                      <line x1="0" y1="18" x2="100" y2="2" stroke="#dc2626" strokeWidth="4" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <span style={{ background: 'var(--green)', color: '#fff', fontSize: '0.72rem', fontWeight: 900, padding: '2px 7px', borderRadius: '6px', letterSpacing: '0.04em' }}>
+                    SAVE 32%
+                  </span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--green)' }}>Now only</span>
+                  <span style={{ fontSize: '2.1rem', fontWeight: 900, color: 'var(--green)', lineHeight: 1 }}>$12.99</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--ink-soft)', fontWeight: 600 }}>/month</span>
+                </div>
+                <div style={{ fontSize: '0.76rem', color: '#16a34a', fontWeight: 700, marginTop: '3px' }}>
+                  200 summaries/week • Custom themes
+                </div>
+              </div>
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 14px', display: 'grid', gap: '6px', fontSize: '0.82rem' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
+                  <span><strong>200 summaries / week</strong></span>
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
+                  <span><strong>Everything in Pro included</strong></span>
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
+                  <span><strong>Custom Visual Color Themes</strong></span>
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: 'var(--green)', fontWeight: 900 }}>✓</span>
+                  <span>VIP Priority processing</span>
+                </li>
+              </ul>
+            </div>
+            <button
+              className="btn btn-wide"
+              style={{
+                fontWeight: 800,
+                fontSize: '0.9rem',
+                padding: '11px 12px',
+                width: '100%',
+                cursor: 'pointer',
+                background: 'var(--green)',
+                borderColor: '#15803d',
+                color: '#fff',
+              }}
+              disabled={busyPlan === 'unlimited'}
+              onClick={() => handleCheckout('unlimited')}
+            >
+              {busyPlan === 'unlimited'
+                ? 'Opening checkout…'
+                : gateway === 'dodo'
+                ? 'Get Unlimited via UPI ($12.99) →'
+                : 'Go Unlimited ($12.99/mo) →'}
             </button>
           </div>
         </div>

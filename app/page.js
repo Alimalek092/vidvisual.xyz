@@ -255,7 +255,7 @@ export default function Home() {
           </div>
           <div className="answer-highlight">
             <strong>💳 Pricing</strong>
-            <span>Free forever: 3 summaries/week, no credit card required</span>
+            <span>3 free summaries/week forever; paid plans from $1.99 (was $4) &amp; $4.99/mo (was $9)</span>
           </div>
           <div className="answer-highlight">
             <strong>📥 Exports</strong>
