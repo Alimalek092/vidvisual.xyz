@@ -1,0 +1,579 @@
+/* ========================================================================
+   WENSITY ULTRA-MODERN UI DESIGN SYSTEM (ui.wensity.com standard)
+   ------------------------------------------------------------------------
+   A comprehensive, source-first UI architecture for vidvisual.
+   Includes:
+   - 1. Text Highlight Sweeping Markers (Wensity text-highlight)
+   - 2. Dual-Layer Orbit Glow Buttons (Wensity cool-button)
+   - 3. Morphing CSS Gradient Blobs (Wensity blob-animation)
+   - 4. Real-time Status Indicator & Latency Pill (Wensity status-indicator)
+   - 5. High-Precision Kbd Tags & Quick Tip Rows (Wensity kbd)
+   - 6. Audio Waveform Long-Form Compressor Visualizer
+   - 7. Interactive Feature Matrix & Comparison Table (Wensity Data Table)
+   - 8. Segmented Study Format Switcher (Wensity tabs)
+   - 9. Glassmorphism Elevation & Neo-Brutalist Physics
+   - 10. Ambient Glow & Dark Theme Neon Enhancements
+   - 11. Fully Responsive & Mobile Viewport Certified (Zero Horizontal Scroll)
+   ======================================================================== */
+
+/* --- 1. Text Highlight Sweeping Markers (Wensity text-highlight) --- */
+.wensity-highlight {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.wensity-highlight-content {
+  position: relative;
+  z-index: 1;
+}
+
+.wensity-highlight-band {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 8%;
+  height: 44%;
+  background-color: var(--hl-color, var(--blue));
+  opacity: var(--hl-opacity, 0.24);
+  border-radius: 4px;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: wensityHighlightSweep 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--hl-delay, 0.2s);
+}
+
+@keyframes wensityHighlightSweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: var(--hl-opacity, 0.24);
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: var(--hl-opacity, 0.24);
+  }
+}
+
+html[data-theme='dark'] .wensity-highlight-band {
+  opacity: calc(var(--hl-opacity, 0.24) * 1.4);
+  filter: drop-shadow(0 0 8px var(--hl-color, var(--blue)));
+}
+
+/* --- 2. Dual-Layer Orbit Glow Buttons (Wensity cool-button) --- */
+.wensity-orbit-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 2px;
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wensity-orbit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.wensity-orbit-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.wensity-orbit-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 2px solid var(--ink);
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.wensity-orbit-btn:hover .wensity-orbit-inner {
+  box-shadow: 6px 7px 0 var(--ink);
+}
+
+.wensity-orbit-primary .wensity-orbit-inner {
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.wensity-orbit-glow {
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0) 60deg,
+    rgba(255, 255, 255, 0.45) 120deg,
+    rgba(255, 255, 255, 0) 180deg,
+    transparent 360deg
+  );
+  animation: wensityOrbitSpin 4s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes wensityOrbitSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.wensity-orbit-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 1.05rem;
+}
+
+.wensity-orbit-lg .wensity-orbit-content {
+  padding: 16px 36px;
+  font-size: 1.15rem;
+}
+
+html[data-theme='dark'] .wensity-orbit-primary .wensity-orbit-inner {
+  background: #2563eb;
+  border-color: #ffffff;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 99, 235, 0.3);
+}
+
+html[data-theme='dark'] .wensity-orbit-btn:hover .wensity-orbit-inner {
+  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.8), 0 0 35px rgba(37, 99, 235, 0.5);
+}
+
+/* --- 3. Morphing CSS Gradient Blobs (Wensity blob-animation) --- */
+.wensity-morphing-blob-wrap {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+  will-change: transform;
+}
+
+.wensity-morphing-blob {
+  width: 100%;
+  height: 100%;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: wensityMorph 12s ease-in-out infinite alternate, wensitySpinSlow 24s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes wensityMorph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  33% {
+    border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%;
+  }
+  66% {
+    border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@keyframes wensitySpinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- 4. Real-time Status Indicator & Latency Pill (Wensity status-indicator) --- */
+.wensity-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.wensity-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: wensityPulseGreen 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes wensityPulseGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+html[data-theme='dark'] .wensity-status-pill {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* --- 5. High-Precision Kbd Tags (Wensity kbd) --- */
+.wensity-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  box-shadow: 1px 1px 0 var(--ink);
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+html[data-theme='dark'] .wensity-kbd {
+  background: #1e293b;
+  box-shadow: 1px 1px 0 #000000;
+}
+
+/* --- 6. Audio Waveform Long-Form Compressor Visualizer --- */
+.wensity-waveform {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 32px;
+  padding: 0 8px;
+}
+
+.wensity-waveform-bar {
+  width: 3.5px;
+  border-radius: 999px;
+  background: var(--blue);
+  animation: wensityWaveJump 1.4s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+@keyframes wensityWaveJump {
+  0% {
+    transform: scaleY(0.25);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.5;
+  }
+}
+
+html[data-theme='dark'] .wensity-waveform-bar {
+  background: #7aa2ff;
+  box-shadow: 0 0 8px rgba(122, 162, 255, 0.4);
+}
+
+/* --- 7. Interactive Feature Matrix & Comparison Table (Wensity Data Table) --- */
+.wensity-matrix-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 36px auto;
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+  overflow: hidden;
+}
+
+html[data-theme='dark'] .wensity-matrix-wrap {
+  background: #111827;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7), 0 0 30px rgba(122, 162, 255, 0.1);
+}
+
+.wensity-matrix-head {
+  display: grid;
+  grid-template-columns: 2.2fr 2fr 1.3fr 1.3fr 1.3fr;
+  padding: 16px 20px;
+  background: rgba(43, 89, 224, 0.06);
+  border-bottom: 2px solid var(--ink);
+  font-weight: 700;
+  align-items: center;
+}
+
+html[data-theme='dark'] .wensity-matrix-head {
+  background: rgba(122, 162, 255, 0.08);
+}
+
+.wensity-matrix-title {
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.wensity-matrix-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.wensity-brand-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--blue);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.wensity-matrix-col {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.wensity-matrix-body {
+  display: grid;
+}
+
+.wensity-matrix-row {
+  display: grid;
+  grid-template-columns: 2.2fr 2fr 1.3fr 1.3fr 1.3fr;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+  transition: background-color 0.18s ease;
+}
+
+.wensity-matrix-row:last-child {
+  border-bottom: none;
+}
+
+.wensity-matrix-row:hover,
+.wensity-matrix-row.is-active {
+  background: rgba(43, 89, 224, 0.04);
+}
+
+html[data-theme='dark'] .wensity-matrix-row:hover,
+html[data-theme='dark'] .wensity-matrix-row.is-active {
+  background: rgba(122, 162, 255, 0.05);
+}
+
+.wensity-matrix-cell {
+  display: flex;
+  align-items: center;
+  font-size: 0.92rem;
+}
+
+.wensity-cell-feature {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.wensity-cell-feature strong {
+  font-size: 0.98rem;
+  color: var(--ink);
+}
+
+.wensity-cell-feature small {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+.wensity-cell-vidvisual {
+  gap: 8px;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(43, 89, 224, 0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(43, 89, 224, 0.25);
+}
+
+html[data-theme='dark'] .wensity-cell-vidvisual {
+  background: rgba(122, 162, 255, 0.1);
+  border-color: rgba(122, 162, 255, 0.3);
+}
+
+.wensity-icon-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.wensity-cell-other {
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.wensity-icon-check-other {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.wensity-icon-cross {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Matrix Mobile Handling */
+@media (max-width: 860px) {
+  .wensity-matrix-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .wensity-matrix-head,
+  .wensity-matrix-row {
+    min-width: 680px;
+  }
+}
+
+/* --- 8. Segmented Study Format Switcher (Wensity tabs) --- */
+.wensity-study-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 24px auto 32px;
+  padding: 6px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  max-width: max-content;
+}
+
+html[data-theme='dark'] .wensity-study-tabs {
+  background: #111827;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.wensity-study-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.wensity-study-tab:hover:not(.is-selected) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme='dark'] .wensity-study-tab:hover:not(.is-selected) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wensity-study-tab.is-selected {
+  background: var(--blue);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(43, 89, 224, 0.35);
+  transform: scale(1.02);
+}
+
+.wensity-tab-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+}
+
+/* --- 9. Glassmorphism Elevation & Neo-Brutalist Physics --- */
+.vv-card {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
+}
+
+.vv-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 4px 5px 0 var(--ink);
+}
+
+html[data-theme='dark'] .vv-card:hover {
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.8), 0 0 16px rgba(122, 162, 255, 0.2);
+}
+
+/* --- 10. Ambient Glow & Dark Theme Neon Enhancements --- */
+html[data-theme='dark'] .brand:hover {
+  filter: drop-shadow(0 0 12px rgba(122, 162, 255, 0.4));
+}
+
+html[data-theme='dark'] .nav-links a:hover {
+  color: #7aa2ff;
+  text-shadow: 0 0 10px rgba(122, 162, 255, 0.3);
+}
+
+/* --- 11. Fully Responsive & Mobile Viewport Certified --- */
+@media (max-width: 640px) {
+  .wensity-study-tabs {
+    border-radius: 16px;
+    padding: 6px;
+    width: 100%;
+  }
+  .wensity-study-tab {
+    width: 100%;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 0.86rem;
+  }
+  .wensity-orbit-lg .wensity-orbit-content {
+    padding: 14px 22px;
+    font-size: 1rem;
+  }
+}

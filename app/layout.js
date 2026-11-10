@@ -2,6 +2,7 @@ import './globals.css';
 // [SAFETY SWITCH]: Comment out or remove the import below to instantly disable all sliding motion & UI enhancements
 import './motion-enhancements.css';
 import './premium-ui.css';
+import './wensity-ui.css';
 
 import ThemeToggle from '@/components/ThemeToggle';
 import { Analytics } from '@vercel/analytics/next';

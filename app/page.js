@@ -1,5 +1,6 @@
 import { IconBolt, IconBrain, IconNotes, IconRefresh, IconMic, IconGrad, IconBriefcase, IconUsers, IconBook, IconClock, IconHandshake, IconFolder } from '@/components/Icons';
 import SlidingTopicTicker from '@/components/SlidingTopicTicker';
+import { TextHighlight, OrbitGlowButton, MorphingBlob, WensityLiveStatus, WensityAudioWaveform, WensityComparisonMatrix } from '@/components/WensityComponents';
 import Link from 'next/link';
 import BrandLogo from '@/components/BrandLogo';
 import Visual from '@/components/Visual';
@@ -142,7 +143,9 @@ export default function Home() {
       </nav>
 
       <header className="hero">
+        <MorphingBlob size={450} colors={['#2b59e0', '#7a5af8', '#23996b']} opacity={0.16} blur={65} style={{ top: '-10%', left: '15%' }} />
         <div className="hero-copy">
+          <WensityLiveStatus latency="20s" model="Gemini 2.5 Flash" />
           <div className="hero-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '999px', background: 'rgba(43, 89, 224, 0.1)', color: 'var(--blue)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '14px', border: '1.5px solid var(--blue)', flexWrap: 'wrap' }}>
             <span><span className="status-indicator-dot" />⚡ Under 20 Seconds</span>
             <span>·</span>
@@ -150,7 +153,7 @@ export default function Home() {
             <span>·</span>
             <span>100% Free Forever</span>
           </div>
-          <h1 className="vv-hand">Turn Any YouTube Video into Visual Notes in Under 20s — in Any Language</h1>
+          <h1 className="vv-hand">Turn Any YouTube Video into Visual Notes in Under 20s — in <TextHighlight color="var(--violet)" opacity={0.24} delay={0.4}>Any Language</TextHighlight></h1>
           <p>
             Stop wasting hours on long videos. Get instant visual whiteboard cards & mind maps in 20 seconds — and save 90% of watch time.
           </p>
@@ -188,6 +191,7 @@ export default function Home() {
       <section id="podcast-showcase" className="podcast-showcase" aria-label="Long-Form Video Compression Showcase">
         <div className="podcast-showcase-copy">
           <span className="answer-badge" style={{ marginBottom: '10px' }}>Long-Form Compression Engine</span>
+          <WensityAudioWaveform />
           <h2 className="vv-hand">Turn Very Long Videos, Lectures &amp; Podcasts into Main Key Points</h2>
           <p>
             Nobody has hours to sit through rambling YouTube videos, dense college lectures, or multi-hour podcast conversations just to find the core ideas that matter.
@@ -312,7 +316,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AEO & SEO: Structured Comparison Table */}
+      {/* AEO & SEO: Structured Comparison Table with Wensity Matrix */}
       <section className="section">
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <span className="answer-badge" style={{ marginBottom: '8px' }}>Battle-Tested Comparison</span>
@@ -321,7 +325,8 @@ export default function Home() {
             Why spatial concept maps and whiteboard cards outperform linear ChatGPT text walls and Chrome extensions.
           </p>
         </div>
-        <div className="comparison-wrap">
+        <WensityComparisonMatrix />
+        <div className="comparison-wrap" style={{ display: 'none' }}>
           <table className="comparison-table">
             <thead>
               <tr>
@@ -439,8 +444,11 @@ export default function Home() {
         ))}
       </section>
       <section className="section final">
+        <MorphingBlob size={480} colors={['#7a5af8', '#2b59e0', '#23996b']} opacity={0.2} blur={75} />
         <h2 className="vv-hand">Stop forgetting what you watch.</h2>
-        <Link href="/register" className="btn btn-primary btn-lg">Get started free</Link>
+        <OrbitGlowButton href="/register" size="lg">
+          <span>🚀 Get started free — 3 summaries/week</span>
+        </OrbitGlowButton>
       </section>
 
       {/* Footer SEO Programmatic Pillar Hubs */}
