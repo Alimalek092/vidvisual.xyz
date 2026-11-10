@@ -9,7 +9,6 @@ export default function WensityInteractivePlayground() {
 
   const formats = [
     { id: 'whiteboard', label: '✏️ Whiteboard Cards', tag: 'Dual-Coding', desc: 'Spatial cards arranged by semantic hierarchy' },
-    { id: 'mindmap', label: '🌐 Interactive Mind Map', tag: 'Visual Graph', desc: 'Central node with connecting sub-topic branches' },
     { id: 'infographic', label: '📊 Infographic Sheet', tag: 'High-Yield', desc: 'One-page visual summary with core quotes' },
   ];
 
