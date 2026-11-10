@@ -190,8 +190,8 @@ export default function Dashboard() {
             className="msg msg-error"
             role="alert"
             style={{
-              background: error.toLowerCase().includes('limit') ? 'rgba(239, 68, 68, 0.08)' : undefined,
-              border: error.toLowerCase().includes('limit') ? '2px solid #ef4444' : undefined,
+              background: error.toLowerCase().includes('limit') ? 'rgba(239, 68, 68, 0.08)' : 'rgba(43, 89, 224, 0.06)',
+              border: error.toLowerCase().includes('limit') ? '2px solid #ef4444' : '2px solid var(--blue)',
               borderRadius: '14px',
               padding: '16px 18px',
             }}
@@ -203,8 +203,15 @@ export default function Dashboard() {
                   Weekly Free Limit Reached
                 </strong>
               </div>
-            ) : null}
-            <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: 1.45, color: error.toLowerCase().includes('limit') ? '#991b1b' : undefined, fontWeight: error.toLowerCase().includes('limit') ? 600 : undefined }}>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <span style={{ fontSize: '1.2rem' }}>💡</span>
+                <strong style={{ color: 'var(--blue)', fontSize: '1rem', fontWeight: 700 }}>
+                  Helpful Tip for this Video
+                </strong>
+              </div>
+            )}
+            <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: 1.45, color: error.toLowerCase().includes('limit') ? '#991b1b' : 'var(--ink)', fontWeight: error.toLowerCase().includes('limit') ? 600 : undefined }}>
               {error}
             </p>
             {error.toLowerCase().includes('limit') ? (
@@ -219,15 +226,41 @@ export default function Dashboard() {
                 </button>
               </div>
             ) : (
-              <p className="small" style={{ margin: '6px 0 0' }}>
-                Need help or facing payment issues? Email us at{' '}
-                <a href="mailto:vidvisual.xyz@gmail.com" style={{ textDecoration: 'underline', fontWeight: 600 }}>
-                  vidvisual.xyz@gmail.com
-                </a>
-              </p>
+              <div style={{ marginTop: '10px' }}>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLanguage('English');
+                      setError('');
+                    }}
+                    className="btn btn-sm"
+                    style={{ fontSize: '0.78rem', padding: '5px 12px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+                  >
+                    🇺🇸 Try in English
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUrl('https://www.youtube.com/watch?v=LG53Vxum0as');
+                      setError('');
+                    }}
+                    className="btn btn-sm"
+                    style={{ fontSize: '0.78rem', padding: '5px 12px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+                  >
+                    🎙️ Test Huberman Sample
+                  </button>
+                </div>
+                <p className="small" style={{ margin: 0, color: 'var(--ink-soft)' }}>
+                  Questions or issues? Email support anytime at{' '}
+                  <a href="mailto:vidvisual.xyz@gmail.com" style={{ textDecoration: 'underline', fontWeight: 600 }}>
+                    vidvisual.xyz@gmail.com
+                  </a>
+                </p>
+              </div>
             )}
           </div>
-        ) : null}
+        ): null}
 
         <section id="plans" className="upgrade">
           <h2 className="vv-hand">Unlock more visual summaries</h2>

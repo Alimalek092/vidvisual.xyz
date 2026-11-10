@@ -301,39 +301,51 @@ export default function HomeHeroGenerator() {
             className="msg msg-error"
             role="alert"
             style={{
-              marginTop: '14px',
-              fontSize: '0.88rem',
-              borderRadius: '12px',
-              padding: '12px 16px',
-              border: '2px solid rgba(239, 68, 68, 0.4)',
-              background: 'rgba(239, 68, 68, 0.06)',
+              marginTop: '16px',
+              fontSize: '0.9rem',
+              borderRadius: '14px',
+              padding: '14px 18px',
+              border: error.toLowerCase().includes('limit') ? '2px solid #ef4444' : '2px solid var(--blue)',
+              background: error.toLowerCase().includes('limit') ? 'rgba(239, 68, 68, 0.08)' : 'rgba(43, 89, 224, 0.06)',
+              color: 'var(--ink)',
             }}
           >
-            <p style={{ margin: '0 0 8px', fontWeight: 600 }}>{error}</p>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginTop: '6px' }}>
-              <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>💡 Try this:</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setLanguage('en');
-                  setError('');
-                }}
-                className="btn btn-sm"
-                style={{ fontSize: '0.78rem', padding: '4px 10px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
-              >
-                🌐 Select English
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setUrl('https://www.youtube.com/watch?v=LG53Vxum0as');
-                  setError('');
-                }}
-                className="btn btn-sm"
-                style={{ fontSize: '0.78rem', padding: '4px 10px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
-              >
-                🎙️ Try Huberman Sample
-              </button>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+              <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>{error.toLowerCase().includes('limit') ? '🔴' : '💡'}</span>
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: '0 0 6px', fontWeight: 700, fontSize: '0.94rem' }}>
+                  {error.toLowerCase().includes('limit') ? 'Weekly Free Allowance' : 'Helpful Tip for this Video'}
+                </p>
+                <p style={{ margin: '0 0 10px', fontSize: '0.86rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+                  {error}
+                </p>
+                {!error.toLowerCase().includes('limit') ? (
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLanguage('English');
+                        setError('');
+                      }}
+                      className="btn btn-sm"
+                      style={{ fontSize: '0.78rem', padding: '5px 12px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+                    >
+                      🇺🇸 Set Language to English
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUrl('https://www.youtube.com/watch?v=LG53Vxum0as');
+                        setError('');
+                      }}
+                      className="btn btn-sm"
+                      style={{ fontSize: '0.78rem', padding: '5px 12px', background: 'var(--paper)', border: '1.5px solid var(--ink)', cursor: 'pointer' }}
+                    >
+                      🎙️ Test Verified Sample
+                    </button>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         ) : null}
