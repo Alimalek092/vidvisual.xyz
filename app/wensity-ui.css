@@ -577,3 +577,578 @@ html[data-theme='dark'] .nav-links a:hover {
     font-size: 1rem;
   }
 }
+
+
+/* ========================================================================
+   CRITICAL MOBILE WENSITY OVERFLOW PREVENTION
+   Ensures matrix, tabs, and orbit buttons adapt to mobile viewports
+   ======================================================================== */
+.wensity-matrix-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .wensity-matrix-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 12px !important;
+    box-shadow: 3px 3px 0 var(--ink) !important;
+    margin: 20px 0 !important;
+  }
+  .wensity-matrix-head,
+  .wensity-matrix-row {
+    min-width: 580px !important;
+  }
+  .wensity-study-tabs {
+    border-radius: 14px !important;
+    padding: 5px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .wensity-study-tab {
+    padding: 7px 11px !important;
+    font-size: 0.8rem !important;
+  }
+  .wensity-orbit-btn {
+    max-width: 100% !important;
+  }
+  .wensity-status-pill {
+    font-size: 0.76rem !important;
+    padding: 4px 10px !important;
+  }
+}
+
+
+/* ========================================================================
+   12. WENSITY INTERACTIVE PLAYGROUND & FORMAT CANVAS (ui.wensity.com standard)
+   ------------------------------------------------------------------------ */
+.wensity-playground-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 32px auto;
+  border: 3px solid var(--ink);
+  border-radius: 24px;
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme='dark'] .wensity-playground-wrap {
+  background: #111827;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7), 0 0 35px rgba(122, 162, 255, 0.12);
+}
+
+.wensity-playground-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed var(--line);
+}
+
+.wensity-playground-formats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wensity-format-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--ink);
+  background: var(--board);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.wensity-format-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.wensity-format-btn.is-active {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.wensity-format-btn-tag {
+  font-size: 0.74rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  color: inherit;
+}
+
+.wensity-format-btn.is-active .wensity-format-btn-tag {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Palette Switcher */
+.wensity-theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.wensity-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.wensity-theme-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--ink);
+}
+
+.wensity-theme-btn.is-active {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(43, 89, 224, 0.2);
+}
+
+.wensity-theme-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--theme-dot-color, var(--blue));
+  display: inline-block;
+}
+
+/* Playground Meta */
+.wensity-playground-meta {
+  margin: 16px 0 20px;
+}
+
+.wensity-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: rgba(43, 89, 224, 0.08);
+  border: 1px solid rgba(43, 89, 224, 0.2);
+  color: var(--ink);
+  font-size: 0.86rem;
+}
+
+html[data-theme='dark'] .wensity-meta-pill {
+  background: rgba(122, 162, 255, 0.1);
+  border-color: rgba(122, 162, 255, 0.25);
+}
+
+.wensity-playground-stage {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+.wensity-playground-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+}
+
+.wensity-foot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========================================================================
+   13. WENSITY ASYMMETRIC BENTO GRID (ui.wensity.com standard)
+   ------------------------------------------------------------------------ */
+.wensity-bento-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 36px auto;
+}
+
+.wensity-bento-card {
+  position: relative;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 5px 5px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+}
+
+html[data-theme='dark'] .wensity-bento-card {
+  background: #111827;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+.wensity-bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 7px 8px 0 var(--ink);
+}
+
+html[data-theme='dark'] .wensity-bento-card:hover {
+  box-shadow: 7px 8px 0 rgba(0, 0, 0, 0.8), 0 0 25px rgba(122, 162, 255, 0.15);
+}
+
+.wensity-bento-card-glow {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+.accent-blue .wensity-bento-card-glow { background: var(--blue); }
+.accent-violet .wensity-bento-card-glow { background: var(--violet); }
+.accent-green .wensity-bento-card-glow { background: var(--green); }
+.accent-amber .wensity-bento-card-glow { background: var(--amber); }
+
+.wensity-bento-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.wensity-bento-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(43, 89, 224, 0.1);
+  color: var(--blue);
+  border: 1px solid rgba(43, 89, 224, 0.25);
+}
+
+.accent-violet .wensity-bento-badge {
+  background: rgba(122, 90, 248, 0.1);
+  color: var(--violet);
+  border-color: rgba(122, 90, 248, 0.25);
+}
+
+.accent-green .wensity-bento-badge {
+  background: rgba(35, 153, 107, 0.1);
+  color: var(--green);
+  border-color: rgba(35, 153, 107, 0.25);
+}
+
+.accent-amber .wensity-bento-badge {
+  background: rgba(229, 154, 0, 0.1);
+  color: var(--amber);
+  border-color: rgba(229, 154, 0, 0.25);
+}
+
+.wensity-bento-extra {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.wensity-bento-title {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.wensity-bento-desc {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+
+.wensity-bento-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1.5px dashed var(--line);
+}
+
+.wensity-bento-stat-num {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.wensity-bento-stat-label {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* ========================================================================
+   14. WENSITY INTERACTIVE STEP JOURNEY (ui.wensity.com standard)
+   ------------------------------------------------------------------------ */
+.wensity-steps-wrap {
+  max-width: 1100px;
+  margin: 40px auto;
+  position: relative;
+}
+
+.wensity-steps-progress {
+  width: 100%;
+  height: 4px;
+  background: var(--line);
+  border-radius: 999px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.wensity-steps-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--violet));
+  border-radius: 999px;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wensity-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.wensity-step-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 22px 18px;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  outline: none;
+}
+
+html[data-theme='dark'] .wensity-step-card {
+  background: #111827;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.wensity-step-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 5px 6px 0 var(--ink);
+}
+
+.wensity-step-card.is-active {
+  border-color: var(--blue);
+  box-shadow: 5px 6px 0 var(--blue);
+  background: rgba(43, 89, 224, 0.04);
+}
+
+html[data-theme='dark'] .wensity-step-card.is-active {
+  background: rgba(122, 162, 255, 0.08);
+  box-shadow: 5px 6px 0 var(--blue), 0 0 20px rgba(122, 162, 255, 0.2);
+}
+
+.wensity-step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.wensity-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.wensity-step-card.is-active .wensity-step-num {
+  background: var(--blue);
+}
+
+.wensity-step-tag {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.wensity-step-title {
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.wensity-step-desc {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  margin: 0 0 12px;
+}
+
+.wensity-step-sub {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* ========================================================================
+   15. WENSITY AUDIENCE PERSONAS BENTO (ui.wensity.com standard)
+   ------------------------------------------------------------------------ */
+.wensity-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 36px auto;
+}
+
+.wensity-audience-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  padding: 24px 22px;
+  box-shadow: 4px 4px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+html[data-theme='dark'] .wensity-audience-card {
+  background: #111827;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+.wensity-audience-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 6px 7px 0 var(--ink);
+}
+
+.wensity-audience-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.wensity-audience-icon {
+  font-size: 1.8rem;
+}
+
+.wensity-audience-tag {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--board);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.wensity-audience-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.wensity-audience-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+
+.wensity-audience-example {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--board);
+  border-left: 3px solid var(--blue);
+  font-size: 0.8rem;
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* Mobile Breakpoints for Bento & Steps */
+@media (max-width: 900px) {
+  .wensity-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .wensity-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .wensity-audience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .wensity-steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .wensity-playground-wrap {
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+  .wensity-format-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .wensity-theme-switcher {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

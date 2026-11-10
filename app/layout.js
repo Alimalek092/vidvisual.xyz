@@ -10,6 +10,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const SITE_URL = 'https://www.vidvisual.xyz';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+};
+
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {

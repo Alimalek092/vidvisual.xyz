@@ -1,5 +1,7 @@
 import { IconBolt, IconBrain, IconNotes, IconRefresh, IconMic, IconGrad, IconBriefcase, IconUsers, IconBook, IconClock, IconHandshake, IconFolder } from '@/components/Icons';
 import SlidingTopicTicker from '@/components/SlidingTopicTicker';
+import WensityInteractivePlayground from '@/components/WensityInteractivePlayground';
+import { WensityValueBento, WensityStepJourney, WensityAudienceBento } from '@/components/WensityBento';
 import { TextHighlight, OrbitGlowButton, MorphingBlob, WensityLiveStatus, WensityAudioWaveform, WensityComparisonMatrix } from '@/components/WensityComponents';
 import Link from 'next/link';
 import BrandLogo from '@/components/BrandLogo';
@@ -270,50 +272,21 @@ export default function Home() {
           vidvisual is built around that idea: instead of leaving you with a pile of scattered notes, it gives
           you a structured, memorable picture of what the video actually said.
         </p>
-        <div className="card-grid">
-          {VALUE_PROPS.map((v) => (
-            <div key={v.title} className={`info-card accent-${v.accent}`}>
-              <span className="card-emoji">{v.emoji}</span>
-              <h3>{v.title}</h3>
-              <p>{v.text}</p>
-            </div>
-          ))}
-        </div>
+        <WensityValueBento />
       </section>
 
       <section id="formats" className="section">
         <h2 className="vv-hand">One video, two ways to remember it</h2>
         <p className="section-lead">
-          Every summary comes in two formats, so you can pick whatever fits the moment — deep study or a
-          quick scan.
+          Every summary comes in two formats, so you can pick whatever fits the moment — deep study or a quick scan. Switch formats and color palettes below to preview live.
         </p>
-        <div className="formats">
-          <div>
-            <h3>Whiteboard</h3>
-            <p>Concept cards for each big idea, plus a mind map that shows how they connect. Best for studying a topic in depth.</p>
-          </div>
-          <div>
-            <h3>Infographic</h3>
-            <p>A single knowledge map with the key takeaways underneath. Best for a quick review before an exam or a meeting.</p>
-          </div>
-        </div>
-        <div className="format-demo">
-          <Visual data={SAMPLE} format="infographic" theme="ocean" />
-        </div>
+        <WensityInteractivePlayground />
       </section>
 
       <section className="section">
         <h2 className="vv-hand">Built for how you actually learn</h2>
         <p className="section-lead">Whoever you are, if you learn from YouTube, vidvisual turns that time into something you keep.</p>
-        <div className="card-grid">
-          {AUDIENCES.map((a) => (
-            <div key={a.title} className={`info-card accent-${a.accent}`}>
-              <span className="card-emoji">{a.emoji}</span>
-              <h3>{a.title}</h3>
-              <p>{a.text}</p>
-            </div>
-          ))}
-        </div>
+        <WensityAudienceBento />
       </section>
 
       {/* AEO & SEO: Structured Comparison Table with Wensity Matrix */}
@@ -387,17 +360,7 @@ export default function Home() {
       <section id="how-it-works" className="section how">
         <h2 className="vv-hand">How it works</h2>
         <p className="section-lead">From link to visual summary in four simple steps — no editing, no formatting, no extra apps.</p>
-        <div className="steps-detailed">
-          {STEPS.map((s) => (
-            <div key={s.num} className="step-detailed">
-              <div className="step-num vv-hand">{s.num}</div>
-              <div>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <WensityStepJourney />
       </section>
 
       <section className="section">

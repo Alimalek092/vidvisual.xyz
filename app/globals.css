@@ -26,13 +26,28 @@ html[data-theme='dark'] {
   --violet: #b794ff;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
 body {
-  margin: 0; font-family: var(--font-body); color: var(--ink); line-height: 1.55;
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.55;
   background-color: var(--board);
   background-image: radial-gradient(#cfd9d6 1px, transparent 1px);
   background-size: 26px 26px;
   transition: background-color .2s ease, color .2s ease;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+}
+h1, h2, h3, h4, h5, h6, p, a, span, li, dt, dd {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 html[data-theme='dark'] body {
   background-image: radial-gradient(#1e293b 1px, transparent 1px);
@@ -719,4 +734,90 @@ html[data-theme='dark'] .seg button.on {
   color: var(--blue);
   text-decoration: underline;
 }
-
+
+
+/* ========================================================================
+   CRITICAL MOBILE ZERO-OVERFLOW SAFEGUARD
+   Guarantees zero horizontal scroll, zero lateral bleed, and perfect fit
+   ======================================================================== */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr !important;
+    padding: 24px 16px 36px !important;
+    gap: 24px !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+  .hero-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .hero-demo {
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    overflow: hidden !important;
+  }
+  .section {
+    padding: 32px 16px !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+  .stats-strip {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 0 14px !important;
+    margin: 0 auto 28px !important;
+  }
+  .sliding-ticker-wrapper {
+    padding: 0 12px !important;
+    margin-bottom: 24px !important;
+    max-width: 100% !important;
+  }
+  .podcast-showcase {
+    grid-template-columns: 1fr !important;
+    padding: 20px 16px !important;
+    gap: 20px !important;
+    margin: 28px auto !important;
+  }
+  .podcast-timeline-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+  }
+  .podcast-timeline-speed {
+    align-self: flex-start !important;
+  }
+  .answer-box {
+    padding: 20px 16px !important;
+    margin: 28px auto !important;
+  }
+  .answer-highlights {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .plans {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .footer-pillars {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    padding: 20px 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-pillars {
+    grid-template-columns: 1fr !important;
+  }
+  .top-bar {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  .theme-toggle {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
