@@ -180,6 +180,11 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
         />
+        <script
+          async
+          src="https://usesourcify.com/api/s.js"
+          data-site="64490463d29b2f9e594d6684c9523d126cf677005739ec3b0fca1412d4eb60ed"
+        />
       </head>
       <body>
         <div className="top-bar">
