@@ -55,6 +55,16 @@ export default function UpgradeModal({
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (open && typeof document !== 'undefined') {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
+
   if (!open || !mounted || typeof document === 'undefined') return null;
 
   const resetData = serverResetInfo || clientReset || calculateMondayReset();
@@ -117,7 +127,7 @@ export default function UpgradeModal({
         inset: 0,
         background: 'rgba(0, 0, 0, 0.72)',
         backdropFilter: 'blur(7px)',
-        zIndex: 99999,
+        zIndex: 999999,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

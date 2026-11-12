@@ -259,7 +259,7 @@ export default function SummaryPage({ params }) {
         {isGuest ? (
           <div style={{ background: 'var(--paper)', border: '2px solid var(--blue)', borderRadius: '12px', padding: '12px 18px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
             <span style={{ fontSize: '0.9rem', color: 'var(--ink)' }}>
-              ✨ <strong>Guest Summary Created!</strong> (3 free summaries/week • Recharges on every Monday of every week). Create a free account to save your library permanently.
+              📌 <strong>Guest Note Active:</strong> This summary is stored temporarily at this link on your device (3 free summaries/week • Recharges every Monday at 00:00 UTC). Create a free account to save it permanently across all your devices!
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
               <Link href="/register" className="btn btn-primary btn-sm" style={{ padding: '6px 14px', fontSize: '0.85rem' }}>
@@ -269,7 +269,22 @@ export default function SummaryPage({ params }) {
           </div>
         ) : null}
 
-        <h1 className="vv-hand small-h">{summary.title}</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '14px' }}>
+          <h1 className="vv-hand small-h" style={{ margin: 0 }}>{summary.title}</h1>
+          {(summary.video_url || summary.data?.videoUrl) ? (
+            <a
+              href={summary.video_url || summary.data?.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="vv-source-link"
+              title="Open original video on YouTube"
+            >
+              <span style={{ fontSize: '0.9rem' }}>▶</span>
+              <span>Watch on YouTube</span>
+              <span style={{ fontSize: '0.75rem' }}>↗</span>
+            </a>
+          ) : null}
+        </div>
         <div className="toolbar">
           <button className="btn" disabled={!!busy} onClick={() => exportAs('jpg')}>
             {busy === 'jpg' ? 'Preparing…' : 'Download JPG'}
@@ -328,7 +343,7 @@ export default function SummaryPage({ params }) {
           </div>
         ) : null}
         <div className="stage">
-          <Visual ref={ref} data={summary.data} format={summary.format} theme={theme} watermark={plan.watermark} />
+          <Visual ref={ref} data={summary.data} format={summary.format} theme={theme} watermark={plan.watermark} videoUrl={summary.video_url || summary.data?.videoUrl} />
         </div>
       </main>
     </>

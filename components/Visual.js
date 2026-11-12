@@ -27,6 +27,14 @@ function wrap(text, max) {
   return lines.slice(0, 3);
 }
 
+function parseTimeToSeconds(timeStr) {
+  if (!timeStr) return 0;
+  const parts = String(timeStr).replace(/[^0-9:]/g, '').split(':').map(Number);
+  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  if (parts.length === 2) return parts[0] * 60 + parts[1];
+  return parts[0] || 0;
+}
+
 function MindMap({ map, colors, ink, dark }) {
   const W = 900, H = 560, cx = W / 2, cy = H / 2;
   const branches = (map?.branches || []).slice(0, 6);
@@ -40,6 +48,14 @@ function MindMap({ map, colors, ink, dark }) {
     });
     return { label: clip(b.label, 18), x: cx + Math.cos(a) * 185, y: cy + Math.sin(a) * 165, kids, color: colors[i % colors.length] };
   });
+
+  // Balanced center node calculation - prevents awkward truncation
+  const centerText = String(map?.center || 'Core Topic').trim();
+  const centerLines = wrap(centerText, 14);
+  const maxLen = Math.max(...centerLines.map((l) => l.length), 6);
+  const rx = Math.max(92, Math.min(145, maxLen * 7.2 + 24));
+  const ry = centerLines.length > 1 ? 52 : 46;
+
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="vv-svg" role="img" aria-label="Mind map">
       {nodes.map((b, i) => (
@@ -65,8 +81,22 @@ function MindMap({ map, colors, ink, dark }) {
           <text x={b.x} y={b.y + 6} textAnchor="middle" fontSize="17" fontWeight="700" fill="#fff">{b.label}</text>
         </g>
       ))}
-      <ellipse cx={cx} cy={cy} rx="92" ry="46" fill={ink} />
-      <text x={cx} y={cy + 9} textAnchor="middle" fontSize="28" fill={dark ? '#0f172a' : '#fff'} className="vv-hand">{clip(map?.center, 14)}</text>
+
+      {/* Dynamic Center Node without truncation */}
+      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill={ink} />
+      {centerLines.map((line, idx) => (
+        <text
+          key={idx}
+          x={cx}
+          y={cy + (idx - (centerLines.length - 1) / 2) * 24 + 8}
+          textAnchor="middle"
+          fontSize={centerLines.length > 1 ? '22' : '28'}
+          fill={dark ? '#0f172a' : '#fff'}
+          className="vv-hand"
+        >
+          {line}
+        </text>
+      ))}
     </svg>
   );
 }
@@ -106,7 +136,7 @@ function Hub({ concepts, title, colors, ink, dark }) {
   );
 }
 
-const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme = 'marker', watermark = false }, ref) {
+const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme = 'marker', watermark = false, videoUrl }, ref) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -123,11 +153,45 @@ const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme =
   const panel = dark ? '#111827' : '#ffffff';
   const quote = dark ? 'rgba(229,238,251,.8)' : '#55627a';
 
+  // Resolved original source video link for traceable notes
+  const finalVideoUrl = videoUrl || data?.videoUrl || data?.url || null;
+
   return (
     <div ref={ref} className={`vv vv-${format}`} style={{ background: t.bg, color: t.ink }}>
       <header className="vv-head">
-        <h2 className="vv-hand vv-title">{data.title}</h2>
-        <div className="vv-meta">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px' }}>
+          <h2 className="vv-hand vv-title" style={{ margin: 0, flex: '1 1 280px' }}>{data.title}</h2>
+          {finalVideoUrl ? (
+            <a
+              href={finalVideoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="vv-source-link"
+              title="Open original video on YouTube"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '4px 12px',
+                borderRadius: '999px',
+                background: 'rgba(239, 68, 68, 0.1)',
+                border: '1.5px solid #ef4444',
+                color: '#dc2626',
+                fontSize: '0.82rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+                marginTop: '4px',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <span style={{ fontSize: '0.85rem' }}>▶</span>
+              <span>Watch on YouTube</span>
+              <span style={{ fontSize: '0.75rem' }}>↗</span>
+            </a>
+          ) : null}
+        </div>
+
+        <div className="vv-meta" style={{ marginTop: '8px' }}>
           <span style={{ background: cols[2] }}>{data.level}</span>
           {data.minutes ? <span style={{ background: cols[0] }}>{data.minutes} min video</span> : null}
         </div>
@@ -137,13 +201,40 @@ const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme =
       {format === 'whiteboard' ? (
         <>
           <div className="vv-cards">
-            {(data.concepts || []).slice(0, 6).map((c, i) => (
-              <div key={i} className="vv-card" style={{ borderColor: cols[i % cols.length], background: panel }}>
-                <div className="vv-emoji">{c.emoji}</div>
-                <h3 style={{ color: cols[i % cols.length] }}>{c.title}</h3>
-                <p style={{ color: dark ? '#dfeafc' : undefined }}>{c.text}</p>
-              </div>
-            ))}
+            {(data.concepts || []).slice(0, 6).map((c, i) => {
+              const timestampsList = c.timestamps || (c.timestamp ? [c.timestamp] : []);
+              return (
+                <div key={i} className="vv-card" style={{ borderColor: cols[i % cols.length], background: panel }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <div className="vv-emoji">{c.emoji}</div>
+                    {timestampsList.length > 0 ? (
+                      <div className="vv-card-timestamps" style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                        {timestampsList.map((ts, idx) => {
+                          const sec = parseTimeToSeconds(ts);
+                          const tsLink = finalVideoUrl ? `${finalVideoUrl.split('&t=')[0]}&t=${sec}s` : null;
+                          return tsLink ? (
+                            <a
+                              key={idx}
+                              href={tsLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="vv-timestamp-chip"
+                              title={`Jump to ${ts} in YouTube video`}
+                            >
+                              ⏱️ {ts} ↗
+                            </a>
+                          ) : (
+                            <span key={idx} className="vv-timestamp-chip">⏱️ {ts}</span>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+                  </div>
+                  <h3 style={{ color: cols[i % cols.length] }}>{c.title}</h3>
+                  <p style={{ color: dark ? '#dfeafc' : undefined }}>{c.text}</p>
+                </div>
+              );
+            })}
           </div>
           <MindMap map={data.mindmap} colors={cols} ink={t.ink} dark={dark} />
         </>
@@ -151,15 +242,46 @@ const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme =
         <>
           <Hub concepts={data.concepts} title={data.mindmap?.center || data.title} colors={cols} ink={t.ink} dark={dark} />
           <ul className="vv-takeaways">
-            {(data.takeaways || []).map((x, i) => (
-              <li key={i} style={{ borderColor: cols[i % cols.length], background: panel, color: t.ink }}>{x}</li>
-            ))}
+            {(data.takeaways || []).map((x, i) => {
+              const match = String(x).match(/^\[([0-9:]+)\]\s*(.*)$/);
+              if (match && finalVideoUrl) {
+                const ts = match[1];
+                const text = match[2];
+                const sec = parseTimeToSeconds(ts);
+                const tsLink = `${finalVideoUrl.split('&t=')[0]}&t=${sec}s`;
+                return (
+                  <li key={i} style={{ borderColor: cols[i % cols.length], background: panel, color: t.ink, display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <a
+                      href={tsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="vv-timestamp-chip"
+                      title={`Jump to ${ts} in YouTube video`}
+                      style={{ flexShrink: 0, marginTop: '2px' }}
+                    >
+                      ⏱️ {ts} ↗
+                    </a>
+                    <span>{text}</span>
+                  </li>
+                );
+              }
+              return (
+                <li key={i} style={{ borderColor: cols[i % cols.length], background: panel, color: t.ink }}>{x}</li>
+              );
+            })}
           </ul>
         </>
       )}
 
       <footer className="vv-foot">
-        <span className="vv-hand brand-inline"><img src="/logo.png" alt="" className="brand-icon-sm" width="20" height="20" /> vidvisual</span>
+        <span className="vv-hand brand-inline">
+          <img src="/logo.png" alt="" className="brand-icon-sm" width="20" height="20" /> vidvisual
+        </span>
+        {finalVideoUrl ? (
+          <span className="vv-foot-source muted" style={{ fontSize: '0.78rem', opacity: 0.85 }}>
+            Source: {finalVideoUrl.replace(/^https?:\/\/(www\.)?/, '')}
+          </span>
+        ) : null}
         {watermark ? <span>Made with vidvisual · vidvisual.xyz</span> : null}
       </footer>
     </div>

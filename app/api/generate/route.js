@@ -62,11 +62,13 @@ export async function POST(request) {
     used = await weeklyUsageSinceMonday(user.id);
   }
 
+  const isFeaturedSample = Boolean(GOLDEN_SAMPLES[videoId]);
+
   // Allowance & Credit Logic:
   // 1. If within weekly free allowance (used < plan.weekly), let it generate free.
-  // 2. If weekly allowance exhausted:
+  // 2. If weekly allowance exhausted (used >= plan.weekly):
   //    - If user has paid credits (credits > 0), use 1 paid credit (counts down 30 -> 29 -> 28)!
-  //    - Else, open upgrade modal.
+  //    - Else, strictly block generation and trigger Upgrade Modal.
   if (used >= plan.weekly) {
     if (credits > 0) {
       consumesCredit = true;
@@ -194,6 +196,9 @@ export async function POST(request) {
     .toString()
     .trim()
     .slice(0, 500);
+
+  data.videoUrl = cleanUrl;
+  data.videoId = videoId;
 
   const insertPayload = {
     user_id: user.id,

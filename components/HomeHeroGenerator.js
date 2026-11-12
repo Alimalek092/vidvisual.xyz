@@ -168,7 +168,7 @@ export default function HomeHeroGenerator() {
               onClick={() => setShowUpgradeModal(true)}
               style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 700, whiteSpace: 'nowrap' }}
             >
-              ⚡ Upgrade to Pro ($9/mo)
+              ⚡ Upgrade to Pro ($4.99/mo, was $9)
             </button>
           </div>
         ) : null}
@@ -204,26 +204,34 @@ export default function HomeHeroGenerator() {
               <button
                 type="button"
                 className="quick-sample-chip"
+                onClick={() => setUrl('https://www.youtube.com/watch?v=UF8uR6Z6KLc')}
+                disabled={busy}
+              >
+                🍎 Steve Jobs (Stanford Speech)
+              </button>
+              <button
+                type="button"
+                className="quick-sample-chip"
                 onClick={() => setUrl('https://www.youtube.com/watch?v=LG53Vxum0as')}
                 disabled={busy}
               >
-                🎙️ Huberman (Focus)
+                🎙️ Huberman (Focus &amp; Brain)
               </button>
               <button
                 type="button"
                 className="quick-sample-chip"
-                onClick={() => setUrl('https://www.youtube.com/watch?v=aircAruvnKk')}
+                onClick={() => setUrl('https://www.youtube.com/watch?v=5eW6Eagr9XA')}
                 disabled={busy}
               >
-                🧠 3Blue1Brown (Neural Nets)
+                🔬 Veritasium (Master Any Skill)
               </button>
               <button
                 type="button"
                 className="quick-sample-chip"
-                onClick={() => setUrl('https://www.youtube.com/watch?v=jZzyERW7h1A')}
+                onClick={() => setUrl('https://www.youtube.com/watch?v=WUvTyaaNkzM')}
                 disabled={busy}
               >
-                💻 CS50 (Algorithms)
+                📐 3Blue1Brown (Calculus)
               </button>
             </div>
           </div>
