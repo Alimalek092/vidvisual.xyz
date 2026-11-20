@@ -739,9 +739,20 @@ html[data-theme='dark'] .vcl-badge:hover .vcl-badge-dark {
 @media (max-width: 768px) {
   .site-foot {
     flex-direction: column !important;
-    gap: 18px !important;
+    align-items: center !important;
+    gap: 14px !important;
     text-align: center !important;
     padding: 24px 16px !important;
+  }
+  .site-foot .brand-inline {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .site-foot .muted {
+    width: 100% !important;
+    text-align: center !important;
+    padding-bottom: 8px !important;
   }
 }
 

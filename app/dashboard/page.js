@@ -41,8 +41,8 @@ export default function Dashboard() {
     }
 
     const [a, b] = await Promise.all([authFetch('/api/me'), authFetch('/api/summaries')]);
-    if (a.ok) setMe(await a.json());
-    if (b.ok) setItems((await b.json()).items);
+    if (a.ok) { try { setMe(await a.json()); } catch {} }
+    if (b.ok) { try { const bd = await b.json(); setItems(bd?.items || []); } catch {} }
   }, [router]);
 
   useEffect(() => {
@@ -92,8 +92,8 @@ export default function Dashboard() {
     setUpgrading(plan);
     try {
       const res = await authFetch('/api/billing/checkout', { method: 'POST', body: JSON.stringify({ plan, gateway }) });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || 'Checkout failed');
       if (json.url) {
         window.location.href = json.url;
         return;

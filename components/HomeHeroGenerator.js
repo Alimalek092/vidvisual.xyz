@@ -28,10 +28,22 @@ export default function HomeHeroGenerator() {
       // Ensure cookie is synced for server-side read
       document.cookie = `vv_guest_id=${gid}; path=/; max-age=31536000; SameSite=Lax`;
 
-      // Check if user previously hit limit this week
+      // Check if user previously hit limit — auto-clear on Monday recharge
       const storedLimit = localStorage.getItem('vv_limit_hit');
       if (storedLimit) {
-        setHasHitLimit(true);
+        const ts = Number(storedLimit);
+        const now = Date.now();
+        // Calculate current Monday 00:00 UTC
+        const d = new Date(now);
+        const day = d.getUTCDay();
+        const diff = day === 0 ? 6 : day - 1;
+        const monday = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - diff, 0, 0, 0, 0));
+        if (!ts || ts < monday.getTime()) {
+          // Stored flag is from a previous week — clear it (Monday recharge)
+          localStorage.removeItem('vv_limit_hit');
+        } else {
+          setHasHitLimit(true);
+        }
       }
     }
   }, []);
@@ -90,7 +102,7 @@ export default function HomeHeroGenerator() {
           });
           setHasHitLimit(true);
           if (typeof window !== 'undefined') {
-            localStorage.setItem('vv_limit_hit', 'true');
+            localStorage.setItem('vv_limit_hit', String(Date.now()));
           }
           setShowUpgradeModal(true);
           return;

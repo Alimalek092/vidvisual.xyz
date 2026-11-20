@@ -371,7 +371,7 @@ html[data-theme='dark'] .pricing-urgency-banner {
 .step-detailed h3 { margin: 4px 0 4px; font-size: 1.15rem; }
 .step-detailed p { margin: 0; color: var(--ink-soft); }
 .site-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 28px clamp(16px, 4vw, 48px); border-top: 2px dashed var(--line); font-size: 1.4rem; }
-.foot-links { display: flex; gap: 20px; font-size: 0.9rem; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 0.9rem; justify-content: center; }
 .foot-links a { color: var(--ink-soft); text-decoration: none; font-weight: 500; }
 .foot-links a:hover { color: var(--blue); text-decoration: underline; }
 .foot-support { text-align: center; }
@@ -488,7 +488,7 @@ html[data-theme='dark'] .seg button.on {
 .vv-meta span { color: #fff; font-size: .8rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
 .vv-quote { margin: 0; padding-left: 14px; border-left: 5px solid; font-style: italic; font-size: 1.05rem; }
 .vv-cards { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; justify-content: stretch; }
-.vv-card { flex: 1 1 calc(33.333% - 14px); min-width: 220px; background: #fff; border: 3px solid; border-radius: 14px; padding: 12px 14px; }
+.vv-card { flex: 1 1 calc(33.333% - 14px); min-width: 180px; background: #fff; border: 3px solid; border-radius: 14px; padding: 12px 14px; }
 .vv-timestamp-chip {
   display: inline-flex;
   align-items: center;
@@ -543,7 +543,8 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
 .vv-svg { width: 100%; height: auto; display: block; }
 .vv-takeaways { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
 .vv-takeaways li { background: #fff; border-left: 8px solid; border-radius: 8px; padding: 10px 14px; font-weight: 500; }
-.vv-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: .8rem; opacity: .85; }
+.vv-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: .8rem; opacity: .85; flex-wrap: wrap; gap: 8px; }
+.vv-foot-source { word-break: break-all; max-width: 100%; }
 .vv-foot .vv-hand { font-size: 1.3rem; }
 
 /* AEO & GEO enhancements */
@@ -983,6 +984,67 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
     gap: 16px !important;
     padding: 20px 14px !important;
   }
+
+  /* Visual component mobile fixes */
+  .vv-foot {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+  }
+  .vv-foot-source {
+    font-size: 0.72rem !important;
+    word-break: break-all !important;
+    text-align: center !important;
+  }
+  .vv-source-link {
+    font-size: 0.75rem !important;
+    padding: 3px 10px !important;
+  }
+  .vv-cards {
+    gap: 10px !important;
+  }
+  .vv-card {
+    min-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+  .vv-head {
+    margin-bottom: 12px !important;
+  }
+
+  /* Site footer mobile fixes — stack everything vertically centered */
+  .site-foot {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 14px !important;
+    padding: 24px 16px !important;
+  }
+  .foot-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* CTA section mobile fix */
+  .final {
+    margin: 28px 0 !important;
+    padding: 32px 16px !important;
+  }
+  .final h2 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem) !important;
+  }
+
+  /* Toolbar mobile fix */
+  .toolbar {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .toolbar .btn {
+    font-size: 0.8rem !important;
+    padding: 8px 12px !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -990,11 +1052,34 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
     grid-template-columns: 1fr !important;
   }
   .top-bar {
-    bottom: 16px !important;
-    right: 16px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    z-index: 998 !important;
   }
   .theme-toggle {
-    width: 40px !important;
-    height: 40px !important;
+    width: 36px !important;
+    height: 36px !important;
+    box-shadow: 2px 2px 0 var(--ink) !important;
+  }
+  .theme-toggle-icon {
+    font-size: 1rem !important;
+  }
+  .vv {
+    padding: 12px !important;
+    border-radius: 14px !important;
+    box-shadow: 4px 4px 0 var(--ink) !important;
+  }
+  .vv-title {
+    font-size: 1.4rem !important;
+  }
+  .foot-links {
+    gap: 6px 12px !important;
+    font-size: 0.82rem !important;
+  }
+  .site-foot .brand-inline {
+    font-size: 1.1rem !important;
+  }
+  .site-foot .muted {
+    font-size: 0.75rem !important;
   }
 }

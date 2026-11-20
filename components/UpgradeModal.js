@@ -77,7 +77,7 @@ export default function UpgradeModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan, gateway }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data.url) {
         window.location.href = data.url;
         return;
@@ -106,7 +106,7 @@ export default function UpgradeModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Failed to send recall email');
       setEmailSent(true);
     } catch (err) {
