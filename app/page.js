@@ -381,7 +381,7 @@ export default function Home() {
           <span className="answer-badge" style={{ marginBottom: '10px' }}>💎 Pricing</span>
           <h2 className="vv-hand" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', marginBottom: '12px' }}>Start free. Upgrade only when you need more.</h2>
           <p className="section-lead" style={{ maxWidth: '580px', margin: '0 auto 8px', fontSize: '1.1rem' }}>
-            Built for students, researchers, and visual learners who want structured notes in 20 seconds. No credit card required to start.
+            Pick your plan. Cancel or switch anytime.
           </p>
           <div className="pricing-trust" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '16px', marginBottom: '8px' }}>
             <span className="pricing-trust-item">✅ No credit card required</span>
@@ -391,8 +391,8 @@ export default function Home() {
         </div>
         <Pricing />
         <div style={{ textAlign: 'center', marginTop: '28px' }}>
-          <Link href="/register" className="btn btn-primary btn-lg" style={{ fontSize: '1.15rem', padding: '16px 36px' }}>Start summarizing free — no card needed</Link>
-          <p className="muted small" style={{ marginTop: '14px' }}>Free plan includes 3 summaries per week, forever. Upgrade or downgrade anytime from your dashboard.</p>
+          <Link href="/register" className="btn btn-primary btn-lg" style={{ fontSize: '1.15rem', padding: '16px 36px' }}>Start summarizing free →</Link>
+          <p className="muted small" style={{ marginTop: '14px' }}>3 free summaries every week, forever. Upgrade or cancel anytime.</p>
         </div>
       </section>
 

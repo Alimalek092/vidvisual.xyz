@@ -26,14 +26,28 @@ export default function AuthForm({ mode }) {
     setLoading(false);
     if (err) return setError(err.message);
     if (isRegister && !data.session) return setNotice('Check your email and click the confirmation link, then log in.');
-    router.push('/dashboard');
+    // Preserve plan/gateway query params for direct checkout after login
+    const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+    const plan = urlParams.get('plan');
+    const gw = urlParams.get('gateway');
+    const dashUrl = plan ? `/dashboard?plan=${plan}${gw ? `&gateway=${gw}` : ''}` : '/dashboard';
+    router.push(dashUrl);
   }
 
   async function google() {
     setError('');
     const { error: err } = await supabase().auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: {
+        redirectTo: (() => {
+          const p = new URLSearchParams(window.location.search);
+          const plan = p.get('plan');
+          const gw = p.get('gateway');
+          return plan
+            ? `${window.location.origin}/dashboard?plan=${plan}${gw ? `&gateway=${gw}` : ''}`
+            : `${window.location.origin}/dashboard`;
+        })(),
+      },
     });
     if (err) setError(err.message);
   }

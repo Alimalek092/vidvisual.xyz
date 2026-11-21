@@ -53,6 +53,14 @@ export default function Dashboard() {
         setSuccessMsg('🎉 Payment successful! Your subscription is now active.');
         window.history.replaceState({}, '', '/dashboard');
       }
+      // Auto-trigger checkout if user arrived with ?plan= (from pricing → register → login flow)
+      const autoPlan = params.get('plan');
+      if (autoPlan && ['starter', 'pro', 'unlimited'].includes(autoPlan)) {
+        const autoGateway = params.get('gateway') || 'polar';
+        window.history.replaceState({}, '', '/dashboard');
+        // Small delay to let auth load, then trigger checkout
+        setTimeout(() => { upgrade(autoPlan, autoGateway); }, 800);
+      }
     }
   }, [load]);
 
