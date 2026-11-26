@@ -209,12 +209,6 @@ export default function Pricing({ current, onSelect, busy, href = '/register' })
         })}
       </div>
 
-      <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '24px', fontSize: '0.85rem', color: 'var(--ink-soft)' }}>
-        <span>🛡️ <strong>100% Risk-Free Guarantee</strong></span>
-        <span>⚡ <strong>Instant Delivery &amp; PDF Access</strong></span>
-        <span>🔄 <strong>1-Click Cancel Anytime</strong></span>
-        <span>💳 <strong>Encrypted Checkout (Cards &amp; UPI)</strong></span>
-      </div>
 
       <p className="pricing-help muted small" style={{ textAlign: 'center', marginTop: '16px' }}>
         ⚡ {gateway === 'dodo' ? 'Instant UPI & Indian payment via Dodo Payments' : 'Secure global payment via Polar (Cards, Apple Pay)'} • Instant delivery • Questions or feedback? Email us at{' '}

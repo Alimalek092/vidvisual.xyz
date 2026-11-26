@@ -988,18 +988,29 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
   /* Visual component mobile fixes */
   .vv-foot {
     flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
+    align-items: flex-start !important;
+    text-align: left !important;
     gap: 6px !important;
+  }
+  .vv-foot .brand-inline {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
   .vv-foot-source {
     font-size: 0.72rem !important;
     word-break: break-all !important;
-    text-align: center !important;
+    text-align: left !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .vv-source-link {
     font-size: 0.75rem !important;
     padding: 3px 10px !important;
+    white-space: nowrap !important;
   }
   .vv-cards {
     gap: 10px !important;
@@ -1019,6 +1030,14 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
     text-align: center !important;
     gap: 14px !important;
     padding: 24px 16px !important;
+    overflow: visible !important;
+  }
+  .site-foot .brand-inline {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
   .foot-links {
     flex-wrap: wrap !important;

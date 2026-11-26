@@ -278,8 +278,8 @@ const Visual = forwardRef(function Visual({ data, format = 'whiteboard', theme =
           <img src="/logo.png" alt="" className="brand-icon-sm" width="20" height="20" /> vidvisual
         </span>
         {finalVideoUrl ? (
-          <span className="vv-foot-source muted" style={{ fontSize: '0.78rem', opacity: 0.85 }}>
-            Source: {finalVideoUrl.replace(/^https?:\/\/(www\.)?/, '')}
+          <span className="vv-foot-source muted" style={{ fontSize: '0.78rem', opacity: 0.85 }} title={finalVideoUrl}>
+            {(() => { const short = finalVideoUrl.replace(/^https?:\/\/(www\.)?/, ''); return short.length > 48 ? short.slice(0, 45) + '…' : short; })()}
           </span>
         ) : null}
         {watermark ? <span>Made with vidvisual · vidvisual.xyz</span> : null}
