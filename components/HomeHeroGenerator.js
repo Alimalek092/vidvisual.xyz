@@ -145,7 +145,7 @@ export default function HomeHeroGenerator() {
         resetInfo={limitData.resetInfo}
       />
 
-      <div className="hero-generator-box" style={{ background: 'var(--paper)', border: '3px solid var(--ink)', borderRadius: '18px', padding: '24px 22px', boxShadow: '6px 6px 0 var(--ink)', marginTop: '20px' }}>
+      <div className="hero-generator-box glass-hero-card" style={{ borderRadius: '20px', padding: '22px 20px', marginTop: '16px' }}>
         
         {/* Persistent Psychological Red Alert Banner if limit is reached */}
         {hasHitLimit ? (
@@ -308,7 +308,7 @@ export default function HomeHeroGenerator() {
                 setShowUpgradeModal(true);
               }
             }}
-            className="btn btn-primary btn-lg"
+            className="btn btn-primary btn-lg hero-cta-glow"
             disabled={busy}
             style={{ width: '100%', fontSize: '1.08rem', padding: '14px 24px', fontWeight: 700, cursor: busy ? 'wait' : 'pointer' }}
           >
@@ -320,11 +320,18 @@ export default function HomeHeroGenerator() {
             ) : hasHitLimit ? (
               '⚡ Limit Reached — Upgrade to Pro for Instant Access'
             ) : (
-              '⚡ Generate Visual Summary Free (No Login Needed)'
+              '⚡ Summarize Video Free (No Login)'
             )}
           </button>
         </form>
 
+        {/* 1-Click Instant Value Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginTop: '12px', paddingTop: '10px', borderTop: '1px dashed var(--line)', fontSize: '0.82rem' }}>
+          <span className="muted">3 free summaries/week · Instant output</span>
+          <Link href="/summary/LG53Vxum0as" className="instant-demo-link">
+            ▶ View Live Interactive Example &rarr;
+          </Link>
+        </div>
 
         {/* Error message */}
         {error ? (

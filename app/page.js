@@ -155,13 +155,17 @@ export default function Home() {
             <span>100% Free Forever</span>
           </div>
           <h1 className="vv-hand">Turn Any YouTube Video into Visual Notes in Under 20s — in <TextHighlight color="var(--violet)" opacity={0.24} delay={0.4}>Any Language</TextHighlight></h1>
-          <p>
-            Stop wasting hours on long videos. Get instant visual whiteboard cards & mind maps in 20 seconds — and save 90% of watch time.
+          <p style={{ fontSize: '1.12rem', maxWidth: '540px' }}>
+            Paste any YouTube link. Get visual whiteboard cards &amp; mind maps in 20s — no login needed.
           </p>
           <HomeHeroGenerator />
         </div>
         <div className="hero-demo">
           <Visual data={SAMPLE} format="whiteboard" />
+          <Link href="/summary/LG53Vxum0as" className="hero-demo-instant-bar">
+            <span>⚡ Real sample: Huberman Lab (Focus &amp; Brain)</span>
+            <span style={{ color: 'var(--blue)' }}>Open Interactive Note &rarr;</span>
+          </Link>
         </div>
       </header>
 
@@ -188,202 +192,40 @@ export default function Home() {
       {/* Smooth Sliding Channels & Topics Marquee */}
       <SlidingTopicTicker />
 
-      {/* Long-Form Video & Lecture Compression Showcase */}
-      <section id="podcast-showcase" className="podcast-showcase" aria-label="Long-Form Video Compression Showcase">
-        <div className="podcast-showcase-copy">
-          <span className="answer-badge" style={{ marginBottom: '10px' }}>Long-Form Compression Engine</span>
-          <WensityAudioWaveform />
-          <h2 className="vv-hand">Turn Very Long Videos, Lectures &amp; Podcasts into Main Key Points</h2>
-          <p>
-            Nobody has hours to sit through rambling YouTube videos, dense college lectures, or multi-hour podcast conversations just to find the core ideas that matter.
-            vidvisual analyzes the complete video transcript, strips away conversational filler, sponsor segments, and repetitive tangents, and distills the main key points into an easy-to-understand visual whiteboard summary you can absorb in under a minute.
-          </p>
-          <Link href="/youtube-podcast-summarizer" className="btn btn-primary btn-sm">Explore Podcast Summarizer &rarr;</Link>
-        </div>
-        <div className="podcast-timeline">
-          <div className="podcast-timeline-item">
-            <div className="podcast-timeline-left">
-              <span className="podcast-timeline-icon">🎙️</span>
-              <div>
-                <div className="podcast-timeline-title">Deep Technical Podcasts (4+ Hours)</div>
-                <div className="podcast-timeline-meta">AI Architecture &amp; Engineering Systems</div>
-              </div>
-            </div>
-            <span className="podcast-timeline-speed">20s &rarr; 5 Concept Cards</span>
-          </div>
-          <div className="podcast-timeline-item">
-            <div className="podcast-timeline-left">
-              <span className="podcast-timeline-icon">🧬</span>
-              <div>
-                <div className="podcast-timeline-title">Science &amp; Health Episodes (3+ Hours)</div>
-                <div className="podcast-timeline-meta">Protocols, Evidence &amp; Action Steps</div>
-              </div>
-            </div>
-            <span className="podcast-timeline-speed">18s &rarr; 6 Key Notes</span>
-          </div>
-          <div className="podcast-timeline-item">
-            <div className="podcast-timeline-left">
-              <span className="podcast-timeline-icon">🏛️</span>
-              <div>
-                <div className="podcast-timeline-title">University Lectures &amp; Seminars (2 Hours)</div>
-                <div className="podcast-timeline-meta">Core Academic Concepts &amp; Formulas</div>
-              </div>
-            </div>
-            <span className="podcast-timeline-speed">15s &rarr; Connected Mind Map</span>
-          </div>
-        </div>
-      </section>
-
-      {/* AEO: Direct Answer Block for AI Overviews & Search Snippets */}
-      <section className="answer-box" aria-label="Quick Overview">
-        <span className="answer-badge">Quick Overview</span>
-        <h2>What is vidvisual?</h2>
-        <p>
-          <strong>vidvisual</strong> is a free AI-powered YouTube video summarizer and visual note-taking app.
-          It automatically turns long video lectures, podcasts, tutorials, and interviews into scannable whiteboard concept cards,
-          knowledge maps, and colorful infographics in under 20 seconds.
-          Built for students, researchers, and professionals who want to learn faster and boost memory retention by up to 65%.
-        </p>
-        <div className="answer-highlights">
-          <div className="answer-highlight">
-            <strong>⏱️ Speed</strong>
-            <span>Generates complete visual notes in ~20 seconds</span>
-          </div>
-          <div className="answer-highlight">
-            <strong>🧠 Formats</strong>
-            <span>Whiteboard concept cards, Infographic &amp; Mind Map</span>
-          </div>
-          <div className="answer-highlight">
-            <strong>💳 Pricing</strong>
-            <span>3 free summaries/week forever; paid plans from $1.99 (was $4) &amp; $4.99/mo (was $9)</span>
-          </div>
-          <div className="answer-highlight">
-            <strong>📥 Exports</strong>
-            <span>Download as JPG, HD PNG, or vector PDF</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <h2 className="vv-hand">Why visual summaries work better than watching twice</h2>
-        <p className="section-lead">
-          Your brain holds onto a well-organized visual far longer than a video you watched once at 2x speed.
-          vidvisual is built around that idea: instead of leaving you with a pile of scattered notes, it gives
-          you a structured, memorable picture of what the video actually said.
-        </p>
-        <WensityValueBento />
-      </section>
-
       <section id="formats" className="section">
-        <h2 className="vv-hand">One video, two ways to remember it</h2>
+        <h2 className="vv-hand">See what you get in 20 seconds</h2>
         <p className="section-lead">
-          Every summary comes in two formats, so you can pick whatever fits the moment — deep study or a quick scan. Switch formats and color palettes below to preview live.
+          Switch formats and color themes below — no signup required to preview.
         </p>
         <WensityInteractivePlayground />
       </section>
 
       <section className="section">
-        <h2 className="vv-hand">Built for how you actually learn</h2>
-        <p className="section-lead">Whoever you are, if you learn from YouTube, vidvisual turns that time into something you keep.</p>
-        <WensityAudienceBento />
+        <h2 className="vv-hand">Why visual notes beat watching at 2x</h2>
+        <WensityValueBento />
       </section>
 
-      {/* AEO & SEO: Structured Comparison Table with Wensity Matrix */}
       <section className="section">
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <span className="answer-badge" style={{ marginBottom: '8px' }}>Battle-Tested Comparison</span>
-          <h2 className="vv-hand" style={{ fontSize: 'clamp(2rem, 3.8vw, 2.7rem)', margin: '0 0 10px' }}>vidvisual vs. Generic AI Summarizers</h2>
-          <p className="section-lead" style={{ margin: '0 auto', maxWidth: '640px' }}>
-            Why spatial concept maps and whiteboard cards outperform linear ChatGPT text walls and Chrome extensions.
-          </p>
+          <span className="answer-badge" style={{ marginBottom: '8px' }}>Comparison</span>
+          <h2 className="vv-hand" style={{ fontSize: 'clamp(2rem, 3.8vw, 2.7rem)', margin: '0 0 8px' }}>vidvisual vs. Text-Wall Summarizers</h2>
         </div>
         <WensityComparisonMatrix />
-        <div className="comparison-wrap" style={{ display: 'none' }}>
-          <table className="comparison-table">
-            <thead>
-              <tr>
-                <th>Capability</th>
-                <th className="highlight-col">vidvisual</th>
-                <th>NoteGPT / Eightify</th>
-                <th>ChatGPT / Chrome Plugins</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Learning Architecture</strong></td>
-                <td className="highlight-col">Interactive Whiteboard &amp; Mind Map</td>
-                <td>Linear text list &amp; timestamps</td>
-                <td>Raw wall of text bullets</td>
-              </tr>
-              <tr>
-                <td><strong>Memory Retention (Paivio Dual-Coding)</strong></td>
-                <td className="highlight-col"><span className="comparison-badge-yes">Up to 65% Higher Recall</span></td>
-                <td>Low (Skimmed bullet fatigue)</td>
-                <td>Low (Passive reading)</td>
-              </tr>
-              <tr>
-                <td><strong>Long-Form Handling (3-4h Podcasts)</strong></td>
-                <td className="highlight-col">Distills to 5-6 core concepts in ~20s</td>
-                <td>Truncates or runs out of tokens</td>
-                <td>Often hits context limits</td>
-              </tr>
-              <tr>
-                <td><strong>Hallucination Defense</strong></td>
-                <td className="highlight-col"><span className="comparison-badge-yes">100% Grounded in Captions</span></td>
-                <td>Occasional hallucinations</td>
-                <td>Frequent speculative fill-in</td>
-              </tr>
-              <tr>
-                <td><strong>Vector &amp; Image Exports</strong></td>
-                <td className="highlight-col">JPG, HD PNG, Vector PDF</td>
-                <td>Copy text or basic markdown</td>
-                <td>Copy plain text only</td>
-              </tr>
-              <tr>
-                <td><strong>Note App Workflows</strong></td>
-                <td className="highlight-col">Ready for Notion, Obsidian, GoodNotes</td>
-                <td>Manual reformatting needed</td>
-                <td>Manual reformatting needed</td>
-              </tr>
-              <tr>
-                <td><strong>Free Weekly Quota</strong></td>
-                <td className="highlight-col"><span className="comparison-badge-yes">3 Free Forever (No Card)</span></td>
-                <td>Aggressive 1-video trial</td>
-                <td>Requires paid Plus plan</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </section>
 
       <section id="how-it-works" className="section how">
         <h2 className="vv-hand">How it works</h2>
-        <p className="section-lead">From link to visual summary in four simple steps — no editing, no formatting, no extra apps.</p>
         <WensityStepJourney />
-      </section>
-
-      <section className="section">
-        <h2 className="vv-hand">What you can do with your visual</h2>
-        <p className="section-lead">A vidvisual summary is not just a picture — it is something you can actually use afterward.</p>
-        <div className="card-grid">
-          {USES.map((u) => (
-            <div key={u.title} className={`info-card accent-${u.accent}`}>
-              <span className="card-emoji">{u.emoji}</span>
-              <h3>{u.title}</h3>
-              <p>{u.text}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
       <section id="pricing" className="section pricing-section">
         <div style={{ textAlign: 'center', marginBottom: '12px' }}>
           <span className="answer-badge" style={{ marginBottom: '10px' }}>💎 Pricing</span>
-          <h2 className="vv-hand" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', marginBottom: '12px' }}>Start free. Upgrade only when you need more.</h2>
-          <p className="section-lead" style={{ maxWidth: '580px', margin: '0 auto 8px', fontSize: '1.1rem' }}>
+          <h2 className="vv-hand" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)', marginBottom: '10px' }}>Start free. Upgrade only when you need more.</h2>
+          <p className="section-lead" style={{ maxWidth: '520px', margin: '0 auto 8px', fontSize: '1.05rem' }}>
             Pick your plan. Cancel or switch anytime.
           </p>
-          <div className="pricing-trust" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '16px', marginBottom: '8px' }}>
+          <div className="pricing-trust" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px', marginBottom: '8px' }}>
             <span className="pricing-trust-item">✅ No credit card required</span>
             <span className="pricing-trust-item">🔄 Cancel anytime</span>
             <span className="pricing-trust-item">📧 24h email support</span>
@@ -391,14 +233,14 @@ export default function Home() {
         </div>
         <Pricing />
         <div style={{ textAlign: 'center', marginTop: '28px' }}>
-          <Link href="/register" className="btn btn-primary btn-lg" style={{ fontSize: '1.15rem', padding: '16px 36px' }}>Start summarizing free →</Link>
+          <Link href="/register" className="btn btn-primary btn-lg hero-cta-glow" style={{ fontSize: '1.15rem', padding: '16px 36px' }}>Start summarizing free &rarr;</Link>
           <p className="muted small" style={{ marginTop: '14px' }}>3 free summaries every week, forever. Upgrade or cancel anytime.</p>
         </div>
       </section>
 
       <section id="faq" className="section faq">
         <h2 className="vv-hand">Questions</h2>
-        {FAQ.map(([q, a]) => (
+        {FAQ.slice(0, 6).map(([q, a]) => (
           <details key={q}>
             <summary>{q}</summary>
             <p>{a}</p>
