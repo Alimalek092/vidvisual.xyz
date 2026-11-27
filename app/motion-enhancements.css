@@ -120,21 +120,32 @@ html[data-theme='dark'] .seg button:hover:not(.on):not(:disabled) {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: var(--paper);
-  border: 1.5px solid var(--ink);
+  background: #0c0c0e;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 999px;
-  box-shadow: 2px 2px 0 var(--ink);
+  box-shadow: none;
   font-size: 0.84rem;
   font-weight: 600;
-  color: var(--ink);
+  color: rgba(244,244,245,0.75);
   white-space: nowrap;
-  transition: transform 0.18s var(--ease-slide-out), box-shadow 0.18s var(--ease-slide-out);
+  transition: transform 0.18s var(--ease-slide-out), border-color 0.18s ease;
   cursor: default;
+}
+
+html:not([data-theme='dark']) .ticker-item {
+  background: rgba(255,255,255,0.78);
+  border: 1px solid rgba(255,255,255,0.70);
+  color: #3a3a3f;
 }
 
 .ticker-item:hover {
   transform: translateY(-2px);
-  box-shadow: 3px 3px 0 var(--ink);
+  border-color: rgba(255,255,255,0.20);
+  box-shadow: none;
+}
+
+html:not([data-theme='dark']) .ticker-item:hover {
+  border-color: rgba(10,10,10,0.20);
 }
 
 .ticker-item-tag {
@@ -204,7 +215,7 @@ html[data-theme='dark'] .seg button:hover:not(.on):not(:disabled) {
 .stat-pill:hover,
 .podcast-timeline-item:hover {
   transform: translateY(-3px);
-  box-shadow: 4px 5px 0 var(--ink);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
 /* 7. Action Button Micro-Interactions */

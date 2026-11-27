@@ -1,818 +1,1275 @@
 /* ============================================================================
-   MAILIENT-INSPIRED DESIGN SYSTEM FOR VIDVISUAL
-   ─────────────────────────────────────────────
-   Full A-to-Z UI overhaul inspired by mailient.xyz's modern SaaS aesthetic:
-   - Deep gradient backgrounds with mesh lighting
-   - Purple-to-blue-to-cyan gradient brand identity
-   - Glassmorphic cards with frosted blur
-   - Inter / Plus Jakarta Sans typography system
-   - Soft glows, neon accents, and smooth micro-animations
-   - Luminous CTA buttons with gradient fills
-   - Clean bordered cards with glow shadows
-   - 100% dark AND light mode compatible
+   MAILIENT DESIGN SYSTEM — EXACT EXTRACTION
+   ─────────────────────────────────────────
+   Source: mailient.xyz (design recon, Nov 2026)
+   Applied to: vidvisual.xyz
+
+   KEY FACTS from recon:
+   - Primary BG dark: #000000 / #0c0c0e (cards) / #111114 (card-2)
+   - Primary BG light: #f3f3f5 (paper), #ffffff glass
+   - Brand blue: #2f6bff (UI) / #2448ff (foil/CTA)
+   - Text dark: #f4f4f5 primary, rgba(244,244,245,0.62) secondary, rgba(244,244,245,0.46) dim
+   - Text light: #0a0a0a primary, #3a3a3f secondary, #5f5f65 muted
+   - Font: Satoshi (primary) + Instrument Serif (display) → mapped to Figtree + Caveat Brush
+   - Navbar: floating fixed pill, 54px, glassmorphic, hairline bordered
+   - Buttons: white solid primary (#f2f2f3→#fff/text:#000), outline secondary
+   - Silver heading gradient: from-white via-neutral-100 to-neutral-500
+   - Cards: dark #0c0c0e, border rgba(255,255,255,0.08)
+   - Radius: 999px pills, 24px cards, 16px inner, 13px icons
    ============================================================================ */
 
-/* ─── 0. CSS Variable Overrides — Mailient Color Palette ─────────────────── */
+/* ─── 0. Load Satoshi from Fontshare (closest to mailient's exact font) ─── */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap');
+
+/* ─── 1. CSS Design Tokens — Exact Mailient Values ───────────────────────── */
 :root {
-  /* Primary gradient pair — purple → electric blue */
-  --m-purple:       #7c3aed;
-  --m-purple-light: #a78bfa;
-  --m-blue:         #2563eb;
-  --m-blue-light:   #60a5fa;
-  --m-cyan:         #06b6d4;
-  --m-cyan-light:   #67e8f9;
-  --m-green:        #10b981;
+  /* Mailient exact brand colors */
+  --m-blue:          #2f6bff;
+  --m-blue-foil:     #2448ff;
+  --m-blue-press:    #1b3be6;
+  --m-emerald:       #10b981;
 
-  /* Gradient definitions */
-  --m-grad-brand:   linear-gradient(135deg, #7c3aed 0%, #2563eb 60%, #06b6d4 100%);
-  --m-grad-hero:    linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(37, 99, 235, 0.10) 60%, rgba(6, 182, 212, 0.08) 100%);
-  --m-grad-cta:     linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
-  --m-grad-warm:    linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  --m-grad-green:   linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  /* Dark canvas (default on most pages) */
+  --m-bg:            #000000;
+  --m-bg-card:       #0c0c0e;
+  --m-bg-card2:      #111114;
+  --m-bg-stage:      #0a0a0a;
+  --m-bg-navbar:     rgba(14, 14, 14, 0.50);
 
-  /* Glow shadows */
-  --m-glow-purple:  0 0 30px rgba(124, 58, 237, 0.35), 0 0 60px rgba(124, 58, 237, 0.15);
-  --m-glow-blue:    0 0 30px rgba(37, 99, 235, 0.35), 0 0 60px rgba(37, 99, 235, 0.15);
-  --m-glow-cyan:    0 0 20px rgba(6, 182, 212, 0.3);
-  --m-glow-card:    0 8px 32px -4px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06);
+  /* Dark text */
+  --m-fg:            #f4f4f5;
+  --m-fg2:           rgba(244, 244, 245, 0.62);
+  --m-fg3:           rgba(244, 244, 245, 0.54);
+  --m-fg-dim:        rgba(244, 244, 245, 0.46);
 
-  /* Typography */
-  --m-font-display: 'Plus Jakarta Sans', 'Figtree', system-ui, sans-serif;
-  --m-font-body:    'Inter', 'Figtree', system-ui, sans-serif;
+  /* Dark borders */
+  --m-line:          rgba(255, 255, 255, 0.08);
+  --m-line2:         rgba(255, 255, 255, 0.14);
 
-  /* Card glass */
-  --m-card-bg:      rgba(255, 255, 255, 0.72);
-  --m-card-border:  rgba(124, 58, 237, 0.14);
-  --m-card-shadow:  0 4px 24px -4px rgba(15, 23, 42, 0.10), 0 1px 4px rgba(15, 23, 42, 0.05);
+  /* Light canvas (tools pages) */
+  --m-paper:         #f3f3f5;
+  --m-glass:         rgba(255, 255, 255, 0.58);
+  --m-glass2:        rgba(255, 255, 255, 0.76);
+  --m-tl-ink:        #0a0a0a;
+  --m-tl-ink2:       #3a3a3f;
+  --m-tl-mute:       #5f5f65;
+  --m-tl-line:       rgba(10, 10, 10, 0.09);
+
+  /* Gradients */
+  --m-grad-silver:   linear-gradient(180deg, #ffffff, #d4d4d4 50%, #737373);
+  --m-grad-foil:     linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 42%);
+  --m-grad-vignette: radial-gradient(60% 26% at 50% 24%, rgba(0,0,0,0.55), transparent 75%),
+                     linear-gradient(180deg, rgba(0,0,0,0.82), rgba(0,0,0,0.3) 22%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.45) 80%, #000);
+
+  /* Shadows */
+  --m-nav-shadow:    0 8px 32px rgba(0,0,0,0.35);
+  --m-nav-inset-d:   inset 2px 2px 1px 0 rgba(255,255,255,0.10), inset -1px -1px 1px 1px rgba(255,255,255,0.04);
+  --m-nav-inset-l:   inset 2px 2px 1px 0 rgba(255,255,255,0.70), inset -1px -1px 1px 1px rgba(255,255,255,0.25);
+  --m-lift:          0 1px 1px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.03), 0 44px 90px -40px rgba(0,0,0,0.3);
+  --m-lift-sm:       0 1px 1px rgba(0,0,0,0.02), 0 8px 18px -10px rgba(0,0,0,0.22);
+  --m-rim-light:     inset 1px 1px 0 rgba(255,255,255,0.98), inset -1px -1px 0 rgba(255,255,255,0.45),
+                     inset 0 0 0 0.5px rgba(255,255,255,0.55), inset 0 14px 22px -18px rgba(255,255,255,0.95);
+  --m-btn-glass:     inset 3px 3px 0.5px -3.5px rgba(255,255,255,0.09),
+                     inset -3px -3px 0.5px -3.5px rgba(255,255,255,0.85),
+                     inset 1px 1px 1px -0.5px rgba(255,255,255,0.6),
+                     inset -1px -1px 1px -0.5px rgba(255,255,255,0.6),
+                     inset 0 0 6px 6px rgba(255,255,255,0.12),
+                     inset 0 0 2px 2px rgba(255,255,255,0.06),
+                     0 0 12px rgba(0,0,0,0.15);
+
+  /* Easing from mailient */
+  --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html[data-theme='dark'] {
-  --m-card-bg:      rgba(17, 24, 39, 0.72);
-  --m-card-border:  rgba(124, 58, 237, 0.28);
-  --m-card-shadow:  0 4px 32px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 58, 237, 0.1);
-  --m-glow-card:    0 8px 40px -4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(124, 58, 237, 0.15);
-}
-
-/* ─── 1. Body — Animated Mesh Gradient Background ────────────────────────── */
+/* ─── 2. Font System — Satoshi for UI, Figtree fallback, Caveat for display ─ */
 body {
-  background-color: #f8f7ff !important;
+  font-family: 'Satoshi', 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+/* Keep handwritten font for brand headlines */
+.vv-hand,
+.hero h1,
+.section h2,
+.auth h1,
+.final h2,
+.lib-title,
+.upgrade h2 {
+  font-family: 'Caveat Brush', 'Instrument Serif', Georgia, serif !important;
+}
+
+/* ─── 3. Background — Pure Mailient Black Canvas ─────────────────────────── */
+body {
+  background-color: #000000 !important;
   background-image:
-    radial-gradient(ellipse at 10% 5%,  rgba(124, 58, 237, 0.10) 0px, transparent 50%),
-    radial-gradient(ellipse at 90% 10%, rgba(37, 99, 235, 0.08)  0px, transparent 50%),
-    radial-gradient(ellipse at 55% 90%, rgba(6, 182, 212, 0.07)  0px, transparent 50%),
-    radial-gradient(ellipse at 20% 70%, rgba(124, 58, 237, 0.05) 0px, transparent 50%),
-    radial-gradient(#ddd8f8 1px, transparent 1px) !important;
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px !important;
+    radial-gradient(ellipse at 50% 0%,   rgba(47, 107, 255, 0.07) 0px, transparent 55%),
+    radial-gradient(ellipse at 15% 30%,  rgba(36, 72, 255, 0.05)  0px, transparent 50%),
+    radial-gradient(ellipse at 85% 70%,  rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    radial-gradient(#0d0d0d 1px, transparent 1px) !important;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px !important;
   background-attachment: fixed !important;
-  font-family: var(--m-font-body);
+  color: #f4f4f5 !important;
 }
 
-html[data-theme='dark'] body {
-  background-color: #07070f !important;
+/* Light mode body */
+html[data-theme='light'] body,
+body:not([data-theme]),
+html:not([data-theme='dark']) body {
+  background-color: #f3f3f5 !important;
   background-image:
-    radial-gradient(ellipse at 10% 5%,  rgba(124, 58, 237, 0.20) 0px, transparent 50%),
-    radial-gradient(ellipse at 90% 10%, rgba(37, 99, 235, 0.16)  0px, transparent 50%),
-    radial-gradient(ellipse at 55% 90%, rgba(6, 182, 212, 0.10)  0px, transparent 50%),
-    radial-gradient(ellipse at 20% 70%, rgba(124, 58, 237, 0.08) 0px, transparent 50%),
-    radial-gradient(#1a1333 1px, transparent 1px) !important;
+    radial-gradient(ellipse at 20% 20%,  rgba(255, 255, 255, 0.90) 0px, transparent 50%),
+    radial-gradient(ellipse at 80% 80%,  rgba(220, 220, 230, 0.70) 0px, transparent 50%),
+    radial-gradient(#e4e4ea 1px, transparent 1px) !important;
+  color: #0a0a0a !important;
 }
 
-/* ─── 2. CSS Variable Syncing — hook mailient palette into vidvisual vars ─── */
+/* Override root variables for light mode */
 :root {
-  --blue:   #2563eb;
-  --violet: #7c3aed;
-  --green:  #10b981;
-  --board:  #f8f7ff;
-  --paper:  #ffffff;
+  --board: #f3f3f5;
+  --paper: #ffffff;
+  --ink:   #0a0a0a;
+  --ink-soft: #5f5f65;
+  --line:  rgba(10, 10, 10, 0.09);
+  --blue:  #2f6bff;
 }
 
 html[data-theme='dark'] {
-  --board:  #07070f;
-  --paper:  #0f0d1e;
-  --blue:   #60a5fa;
-  --violet: #a78bfa;
-  --green:  #34d399;
-  --ink:    #e9e8ff;
-  --ink-soft: #9b97c8;
-  --line:   #1e1a3f;
+  --board: #000000;
+  --paper: #0c0c0e;
+  --ink:   #f4f4f5;
+  --ink-soft: rgba(244, 244, 245, 0.62);
+  --line:  rgba(255, 255, 255, 0.08);
+  --blue:  #2f6bff;
+  --violet: #6b8fff;
+  --green:  #10b981;
+  --red:    #ef4444;
+  --amber:  #f59e0b;
 }
 
-/* ─── 3. Frosted Navbar — Mailient style top bar ─────────────────────────── */
+/* ─── 4. Navbar — Mailient Floating Pill Style ───────────────────────────── */
 .nav {
-  position: sticky !important;
-  top: 0 !important;
+  position: fixed !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 48px) !important;
+  max-width: 1024px !important;
   z-index: 100 !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  background: rgba(248, 247, 255, 0.85) !important;
-  border-bottom: 1px solid rgba(124, 58, 237, 0.10) !important;
-  box-shadow: 0 1px 20px rgba(124, 58, 237, 0.07) !important;
-  transition: background 0.3s ease, box-shadow 0.3s ease !important;
+  /* Glass pill */
+  background: rgba(14, 14, 14, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 999px !important;
+  height: 54px !important;
+  padding: 0 20px !important;
+  box-shadow: var(--m-nav-shadow), var(--m-nav-inset-d) !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  /* Reset top-bar spacing from layout */
+  margin: 0 !important;
 }
 
-html[data-theme='dark'] .nav {
-  background: rgba(7, 7, 15, 0.88) !important;
-  border-bottom: 1px solid rgba(124, 58, 237, 0.20) !important;
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(124, 58, 237, 0.08) !important;
+/* Spacer below fixed navbar — push content down */
+body > * + * {
+  /* handled via hero padding */
 }
 
-/* Nav brand — gradient text */
+/* Light mode navbar */
+html:not([data-theme='dark']) .nav {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-nav-shadow), var(--m-nav-inset-l) !important;
+}
+
+/* Nav brand */
 .brand {
-  background: var(--m-grad-brand) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  font-size: 1rem !important;
   font-weight: 800 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  -webkit-background-clip: unset !important;
 }
 
-html[data-theme='dark'] .brand {
-  opacity: 1 !important;
+html:not([data-theme='dark']) .brand {
+  color: #0a0a0a !important;
+  -webkit-text-fill-color: unset !important;
 }
 
-/* Nav links — mailient style */
+.brand:hover {
+  opacity: 0.85 !important;
+  transform: none !important;
+}
+
+/* Nav links */
+.nav-links {
+  gap: 28px !important;
+  flex-wrap: nowrap !important;
+}
+
 .nav-links a:not(.btn),
-.nav-links button:not(.btn) {
-  font-size: 0.9rem !important;
-  font-weight: 500 !important;
-  color: var(--ink-soft) !important;
+.nav-links button:not(.btn),
+.nav-links .link {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: rgba(244, 244, 245, 0.75) !important;
   transition: color 0.15s ease !important;
-  position: relative !important;
+  text-decoration: none !important;
 }
 
 .nav-links a:not(.btn):hover,
 .nav-links button:not(.btn):hover {
-  color: var(--m-purple) !important;
-  text-decoration: none !important;
-}
-
-html[data-theme='dark'] .nav-links a:not(.btn):hover,
-html[data-theme='dark'] .nav-links button:not(.btn):hover {
-  color: var(--m-purple-light) !important;
-}
-
-/* ─── 4. Gradient CTA Buttons — Mailient's signature pill buttons ─────────── */
-.btn-primary {
-  background: var(--m-grad-cta) !important;
-  border-color: transparent !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4), 3px 3px 0 rgba(37, 99, 235, 0.3) !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+
+html:not([data-theme='dark']) .nav-links a:not(.btn),
+html:not([data-theme='dark']) .nav-links button:not(.btn) {
+  color: rgba(10, 10, 10, 0.70) !important;
+}
+
+html:not([data-theme='dark']) .nav-links a:not(.btn):hover {
+  color: #0a0a0a !important;
+}
+
+/* Underline animation removed for mailient style */
+.nav-links a:not(.btn)::after { display: none !important; }
+
+/* ─── 5. Primary CTA Button — Mailient White Solid ───────────────────────── */
+.btn-primary {
+  background: #f2f2f3 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #000000 !important;
+  box-shadow: var(--m-btn-glass) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.01em !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+  font-size: 0.75rem !important;
+  letter-spacing: -0.01em !important;
+  border-radius: 999px !important;
+  padding: 8px 18px !important;
+  transition: background 0.15s var(--m-ease), box-shadow 0.15s ease !important;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5), 4px 4px 0 rgba(37, 99, 235, 0.3) !important;
-  filter: brightness(1.08) !important;
-}
-
-.btn-primary:active:not(:disabled) {
-  transform: translateY(0px) !important;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3) !important;
-}
-
-/* Regular btn — glassmorphic */
-.btn:not(.btn-primary) {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.20) !important;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08), 2px 2px 0 rgba(124, 58, 237, 0.08) !important;
-  backdrop-filter: blur(8px) !important;
-  font-weight: 600 !important;
-}
-
-.btn:not(.btn-primary):hover:not(:disabled) {
-  border-color: rgba(124, 58, 237, 0.40) !important;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15), 3px 3px 0 rgba(124, 58, 237, 0.12) !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: var(--m-btn-glass), 0 4px 20px rgba(0,0,0,0.25) !important;
   transform: translateY(-1px) !important;
 }
 
-html[data-theme='dark'] .btn:not(.btn-primary) {
-  background: rgba(17, 24, 39, 0.75) !important;
-  border-color: rgba(124, 58, 237, 0.30) !important;
-  color: var(--ink) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(124, 58, 237, 0.1) !important;
+.btn-primary:active:not(:disabled) {
+  background: #e8e8e9 !important;
+  transform: scale(0.985) !important;
+  box-shadow: none !important;
 }
 
-html[data-theme='dark'] .btn:not(.btn-primary):hover:not(:disabled) {
-  border-color: rgba(167, 139, 250, 0.5) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(124, 58, 237, 0.2) !important;
+/* Larger CTA button sizes */
+.btn-lg.btn-primary,
+.btn-primary.btn-lg {
+  font-size: 0.95rem !important;
+  padding: 14px 28px !important;
+  font-weight: 700 !important;
 }
 
-/* ─── 5. Hero Section — full-bleed gradient aura ─────────────────────────── */
+/* ─── 6. Regular Button — Outline Hairline Pill ──────────────────────────── */
+.btn:not(.btn-primary) {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  color: #f4f4f5 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  transition: background 0.15s ease, border-color 0.15s ease !important;
+}
+
+.btn:not(.btn-primary):hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.40) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: none !important;
+}
+
+html:not([data-theme='dark']) .btn:not(.btn-primary) {
+  border-color: rgba(10, 10, 10, 0.20) !important;
+  color: #0a0a0a !important;
+}
+
+html:not([data-theme='dark']) .btn:not(.btn-primary):hover:not(:disabled) {
+  border-color: rgba(10, 10, 10, 0.40) !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ─── 7. Hero Section ────────────────────────────────────────────────────── */
 .hero {
-  position: relative !important;
+  padding-top: clamp(100px, 14vw, 180px) !important;
+  padding-bottom: clamp(60px, 8vw, 100px) !important;
   overflow: visible !important;
 }
 
-.hero-copy h1 {
-  background: linear-gradient(135deg, var(--ink) 0%, var(--m-purple) 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  line-height: 1.08 !important;
+/* Hero H1 — Mailient uses white/dim two-tone (we keep vv-hand, adapt color) */
+.hero-copy h1,
+.hero h1 {
+  color: #f4f4f5 !important;
+  line-height: 1.0 !important;
+  letter-spacing: -0.025em !important;
 }
 
-html[data-theme='dark'] .hero-copy h1 {
-  background: linear-gradient(135deg, #e9e8ff 0%, #c4b5fd 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+html:not([data-theme='dark']) .hero-copy h1,
+html:not([data-theme='dark']) .hero h1 {
+  color: #0a0a0a !important;
 }
 
 /* Hero pill badge */
 .hero-pill {
-  background: rgba(124, 58, 237, 0.08) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.25) !important;
-  color: var(--m-purple) !important;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: rgba(244, 244, 245, 0.85) !important;
+  box-shadow: none !important;
   backdrop-filter: blur(8px) !important;
+  font-size: 0.84rem !important;
 }
 
-html[data-theme='dark'] .hero-pill {
-  background: rgba(124, 58, 237, 0.15) !important;
-  border-color: rgba(167, 139, 250, 0.35) !important;
-  color: #c4b5fd !important;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25), 0 0 0 1px rgba(124, 58, 237, 0.08) !important;
+html:not([data-theme='dark']) .hero-pill {
+  background: rgba(10, 10, 10, 0.05) !important;
+  border-color: rgba(10, 10, 10, 0.14) !important;
+  color: #3a3a3f !important;
 }
 
-/* ─── 6. Stats Strip — Mailient-style metric cards ───────────────────────── */
+.status-indicator-dot {
+  background: #2f6bff !important;
+  box-shadow: 0 0 0 0 rgba(47, 107, 255, 0.7) !important;
+  animation: mBlueStatusPulse 2s infinite !important;
+}
+
+@keyframes mBlueStatusPulse {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(47, 107, 255, 0.7); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 7px rgba(47, 107, 255, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(47, 107, 255, 0); }
+}
+
+/* Hero sub text */
+.hero p {
+  color: rgba(244, 244, 245, 0.62) !important;
+}
+
+html:not([data-theme='dark']) .hero p {
+  color: #5f5f65 !important;
+}
+
+/* ─── 8. Stats Strip — Mailient Metric Cards ─────────────────────────────── */
 .stats-strip {
   display: flex !important;
   justify-content: center !important;
-  gap: 16px !important;
+  gap: 12px !important;
   flex-wrap: wrap !important;
   padding: 20px clamp(16px, 4vw, 48px) !important;
   max-width: 1160px !important;
-  margin: 0 auto !important;
+  margin: 8px auto 0 !important;
 }
 
 .stat-pill {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
-  box-shadow: var(--m-card-shadow) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 20px !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  padding: 20px 24px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  text-align: center !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
   flex: 1 1 160px !important;
   max-width: 220px !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  transition: border-color 0.2s ease, background 0.2s ease !important;
 }
 
 .stat-pill:hover {
-  transform: translateY(-4px) !important;
-  border-color: rgba(124, 58, 237, 0.35) !important;
-  box-shadow: var(--m-glow-card), 0 0 20px rgba(124, 58, 237, 0.12) !important;
+  background: #111114 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
 }
 
-html[data-theme='dark'] .stat-pill:hover {
-  border-color: rgba(167, 139, 250, 0.45) !important;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 20px rgba(124, 58, 237, 0.2) !important;
+html:not([data-theme='dark']) .stat-pill {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
 }
 
+html:not([data-theme='dark']) .stat-pill:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Stat numbers — mailient blue accent or white */
 .stat-pill-num {
   font-size: 2rem !important;
   font-weight: 800 !important;
-  letter-spacing: -0.03em !important;
-  background: var(--m-grad-brand) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  line-height: 1.1 !important;
+  letter-spacing: -0.04em !important;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+html:not([data-theme='dark']) .stat-pill-num {
+  color: #2f6bff !important;
 }
 
 .stat-pill-label {
-  font-size: 0.78rem !important;
-  font-weight: 500 !important;
-  color: var(--ink-soft) !important;
-  margin-top: 4px !important;
-  line-height: 1.4 !important;
+  color: rgba(244, 244, 245, 0.54) !important;
+  font-size: 0.75rem !important;
 }
 
-/* ─── 7. Feature / Info Cards — glassmorphic with gradient left border ────── */
+html:not([data-theme='dark']) .stat-pill-label {
+  color: #5f5f65 !important;
+}
+
+/* ─── 9. Section Headings — Mailient Silver Gradient on dark, dark on light ─ */
+.section h2,
+.vv-hand.section h2 {
+  font-family: 'Caveat Brush', 'Instrument Serif', Georgia, serif !important;
+  color: #f4f4f5 !important;
+  letter-spacing: -0.025em !important;
+}
+
+html:not([data-theme='dark']) .section h2 {
+  color: #0a0a0a !important;
+}
+
+/* ─── 10. Feature / Info Cards — Mailient Dark Card ─────────────────────── */
 .info-card {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
-  box-shadow: var(--m-card-shadow) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 20px !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
-  overflow: hidden !important;
-  position: relative !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--m-ease) !important;
 }
 
-.info-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--m-grad-brand);
-  border-radius: 20px 0 0 20px;
-  opacity: 0;
-  transition: opacity 0.22s ease;
-}
-
-.info-card:hover::before { opacity: 1; }
+.info-card::before { display: none !important; }
 
 .info-card:hover {
-  transform: translateY(-6px) !important;
-  border-color: rgba(124, 58, 237, 0.30) !important;
-  box-shadow: 0 16px 40px -8px rgba(124, 58, 237, 0.20), var(--m-card-shadow) !important;
+  background: #111114 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
 }
 
-html[data-theme='dark'] .info-card:hover {
-  box-shadow: 0 16px 40px -4px rgba(0,0,0,0.6), 0 0 20px rgba(124, 58, 237, 0.20) !important;
+html:not([data-theme='dark']) .info-card {
+  background: var(--m-glass) !important;
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
-.info-card.accent-blue,
-.info-card.accent-green,
-.info-card.accent-amber,
-.info-card.accent-violet {
-  border-left: none !important;
+html:not([data-theme='dark']) .info-card:hover {
+  background: var(--m-glass2) !important;
+  box-shadow: var(--m-lift), var(--m-rim-light) !important;
 }
 
-/* ─── 8. Pricing Cards — Mailient gradient highlight ─────────────────────── */
+.info-card h3 { color: #f4f4f5 !important; }
+.info-card p  { color: rgba(244, 244, 245, 0.62) !important; }
+
+html:not([data-theme='dark']) .info-card h3 { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .info-card p  { color: #5f5f65 !important; }
+
+/* ─── 11. Pricing Cards — Mailient featured foil card ────────────────────── */
 .plan {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
-  border-radius: 24px !important;
-  box-shadow: var(--m-card-shadow) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 22px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, transform 0.2s var(--m-ease) !important;
 }
 
 .plan:hover {
-  transform: translateY(-6px) !important;
-  border-color: rgba(124, 58, 237, 0.35) !important;
-  box-shadow: 0 16px 40px -8px rgba(124, 58, 237, 0.20) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
 }
 
+/* Featured plan — cobalt blue foil header style */
 .plan-hot {
-  background: linear-gradient(145deg, rgba(124, 58, 237, 0.08) 0%, rgba(37, 99, 235, 0.06) 100%) !important;
-  border: 2px solid transparent !important;
-  background-clip: padding-box !important;
-  position: relative !important;
-  box-shadow: 0 8px 32px -4px rgba(124, 58, 237, 0.30) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(47, 107, 255, 0.35) !important;
+  box-shadow: 0 0 0 1px rgba(47, 107, 255, 0.10), 0 20px 50px rgba(0,0,0,0.5) !important;
 }
 
-.plan-hot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  padding: 2px;
-  background: var(--m-grad-brand);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-html[data-theme='dark'] .plan-hot {
-  background: linear-gradient(145deg, rgba(124, 58, 237, 0.18) 0%, rgba(37, 99, 235, 0.12) 100%) !important;
-  box-shadow: 0 8px 40px -4px rgba(0,0,0,0.5), 0 0 30px rgba(124, 58, 237, 0.25) !important;
-}
+.plan-hot::before { display: none !important; }
 
 .plan-hot:hover {
-  box-shadow: 0 20px 50px -8px rgba(124, 58, 237, 0.40) !important;
+  border-color: rgba(47, 107, 255, 0.60) !important;
+  box-shadow: 0 0 0 1px rgba(47, 107, 255, 0.25), 0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(47, 107, 255, 0.15) !important;
 }
 
+html:not([data-theme='dark']) .plan {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
+}
+
+html:not([data-theme='dark']) .plan-hot {
+  border-color: rgba(47, 107, 255, 0.40) !important;
+  box-shadow: 0 0 0 1px rgba(47, 107, 255, 0.15), var(--m-lift) !important;
+}
+
+/* Plan price — keep clean white */
 .plan-current-amount {
-  background: var(--m-grad-brand) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  -webkit-background-clip: unset !important;
+  font-size: 2.4rem !important;
+  font-weight: 900 !important;
 }
 
-/* ─── 9. FAQ Accordion — clean mailient style ────────────────────────────── */
+.plan h3 { color: #f4f4f5 !important; }
+.plan ul li { color: rgba(244, 244, 245, 0.75) !important; }
+
+html:not([data-theme='dark']) .plan-current-amount { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .plan h3 { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .plan ul li { color: #3a3a3f !important; }
+
+/* Plan tag badges — cobalt blue */
+.plan-tag {
+  background: #2f6bff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.plan-tag-value {
+  background: #10b981 !important;
+}
+
+/* ─── 12. FAQ — Mailient Hairline Dark Accordion ─────────────────────────── */
 .faq details {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
   border-radius: 16px !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-  box-shadow: var(--m-card-shadow) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, background 0.15s ease !important;
 }
 
 .faq details:hover,
 .faq details[open] {
-  border-color: rgba(124, 58, 237, 0.30) !important;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.10) !important;
+  background: #111114 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: none !important;
 }
 
-.faq summary {
-  font-weight: 600 !important;
-  color: var(--ink) !important;
+.faq summary { color: #f4f4f5 !important; }
+.faq p { color: rgba(244, 244, 245, 0.62) !important; }
+
+html:not([data-theme='dark']) .faq details {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
 }
 
-/* ─── 10. Section headings — gradient and display font ───────────────────── */
-.section h2,
-.section > h2 {
-  font-family: var(--m-font-display), var(--font-hand) !important;
+html:not([data-theme='dark']) .faq summary { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .faq p { color: #5f5f65 !important; }
+
+/* ─── 13. Answer Badge — Cobalt blue pill ────────────────────────────────── */
+.answer-badge {
+  background: rgba(47, 107, 255, 0.12) !important;
+  color: #6b9eff !important;
+  border: 1px solid rgba(47, 107, 255, 0.25) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  padding: 4px 12px !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
 }
 
-/* ─── 11. Visual Whiteboard Card (vv) — mailient glass card ─────────────── */
+html:not([data-theme='dark']) .answer-badge {
+  background: rgba(47, 107, 255, 0.08) !important;
+  color: #2f6bff !important;
+  border-color: rgba(47, 107, 255, 0.20) !important;
+}
+
+/* ─── 14. Answer Box — dark card ────────────────────────────────────────── */
+.answer-box {
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+html:not([data-theme='dark']) .answer-box {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm) !important;
+}
+
+/* ─── 15. Visual Whiteboard Card (vv) — Dark Glass ───────────────────────── */
 .vv {
-  background: var(--m-card-bg) !important;
-  border: 1.5px solid var(--m-card-border) !important;
-  border-radius: 24px !important;
-  box-shadow: var(--m-glow-card) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-}
-
-html[data-theme='dark'] .vv {
-  border-color: rgba(124, 58, 237, 0.25) !important;
-  box-shadow: 0 20px 60px -15px rgba(0,0,0,0.6), 0 0 30px rgba(124, 58, 237, 0.15) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+  backdrop-filter: none !important;
 }
 
 .vv-card {
-  background: rgba(255,255,255,0.65) !important;
-  border: 1px solid rgba(124, 58, 237, 0.12) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(10px) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  background: #111114 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  backdrop-filter: none !important;
+  transition: border-color 0.2s ease !important;
 }
 
 .vv-card:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
 }
 
-html[data-theme='dark'] .vv-card {
-  background: rgba(17, 13, 30, 0.75) !important;
-  border-color: rgba(124, 58, 237, 0.20) !important;
+html:not([data-theme='dark']) .vv {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(10, 10, 10, 0.09) !important;
+  box-shadow: var(--m-lift), var(--m-rim-light) !important;
 }
 
-/* ─── 12. Answer Badge & Answer Box — mailient tag style ─────────────────── */
-.answer-badge {
-  background: var(--m-grad-brand) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  padding: 4px 14px !important;
-  border-radius: 999px !important;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.30) !important;
+html:not([data-theme='dark']) .vv-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(10, 10, 10, 0.08) !important;
 }
 
-.answer-box {
-  background: var(--m-card-bg) !important;
-  border: 1.5px solid var(--m-card-border) !important;
-  border-radius: 20px !important;
-  box-shadow: var(--m-card-shadow) !important;
-  backdrop-filter: blur(14px) !important;
-}
-
-/* ─── 13. Status Indicator Dot — green pulsing ───────────────────────────── */
-.status-indicator-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: mStatusPulse 2s infinite;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-@keyframes mStatusPulse {
-  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70%  { transform: scale(1);    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-/* ─── 14. Footer SEO Pillars — mailient link grid ────────────────────────── */
-.footer-pillars {
-  background: var(--m-card-bg) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-top: 1px solid var(--m-card-border) !important;
-  border-bottom: 1px solid var(--m-card-border) !important;
-  padding: 32px clamp(16px, 4vw, 48px) !important;
-  margin-top: 20px !important;
-}
-
-html[data-theme='dark'] .footer-pillars {
-  background: rgba(7, 7, 15, 0.70) !important;
-}
-
-.footer-pillar-col h4 {
-  font-family: var(--m-font-display), var(--font-hand) !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  color: var(--ink) !important;
-  letter-spacing: 0.02em !important;
-  text-transform: uppercase !important;
-  font-family: inherit !important;
-}
-
-.footer-pillar-col a {
-  color: var(--ink-soft) !important;
-  font-size: 0.88rem !important;
-  font-weight: 450 !important;
-  transition: color 0.15s ease !important;
-}
-
-.footer-pillar-col a:hover {
-  color: var(--m-purple-light) !important;
-  text-decoration: none !important;
-}
-
-html[data-theme='dark'] .footer-pillar-col a:hover {
-  color: #c4b5fd !important;
-}
-
-/* ─── 15. Site Footer — clean horizontal bar ─────────────────────────────── */
-.site-foot {
-  background: rgba(248, 247, 255, 0.90) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border-top: 1px solid rgba(124, 58, 237, 0.10) !important;
-}
-
-html[data-theme='dark'] .site-foot {
-  background: rgba(7, 7, 15, 0.92) !important;
-  border-top-color: rgba(124, 58, 237, 0.18) !important;
-}
-
-/* ─── 16. Final CTA Section — luminous gradient card ─────────────────────── */
+/* ─── 16. Final CTA Section — Dark Card with Blue Glow ───────────────────── */
 .final {
-  position: relative !important;
-  background: var(--m-card-bg) !important;
-  border: 1.5px solid var(--m-card-border) !important;
-  border-radius: 28px !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  box-shadow: 0 20px 60px -16px rgba(124, 58, 237, 0.25), var(--m-card-shadow) !important;
-  overflow: hidden !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 24px !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 0 60px rgba(47, 107, 255, 0.08) !important;
   margin: 32px clamp(16px, 4vw, 48px) !important;
+  overflow: hidden !important;
+  position: relative !important;
 }
 
 .final::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 70%),
-              radial-gradient(ellipse at 100% 100%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(47, 107, 255, 0.08) 0%, transparent 65%);
   pointer-events: none;
 }
 
-html[data-theme='dark'] .final {
-  box-shadow: 0 20px 60px -16px rgba(0,0,0,0.6), 0 0 40px rgba(124, 58, 237, 0.20) !important;
+html:not([data-theme='dark']) .final {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift), var(--m-rim-light) !important;
 }
 
-/* ─── 17. Dashboard Library Cards ────────────────────────────────────────── */
+.final h2 { color: #f4f4f5 !important; }
+html:not([data-theme='dark']) .final h2 { color: #0a0a0a !important; }
+
+/* ─── 17. Footer SEO Pillars — Mailient Dark Section ─────────────────────── */
+.footer-pillars {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 40px clamp(16px, 4vw, 48px) !important;
+  margin-top: 20px !important;
+}
+
+html:not([data-theme='dark']) .footer-pillars {
+  border-top-color: rgba(10, 10, 10, 0.08) !important;
+  border-bottom-color: rgba(10, 10, 10, 0.08) !important;
+}
+
+.footer-pillar-col h4 {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: rgba(244, 244, 245, 0.55) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-family: 'Satoshi', 'Figtree', sans-serif !important;
+}
+
+html:not([data-theme='dark']) .footer-pillar-col h4 {
+  color: #5f5f65 !important;
+}
+
+.footer-pillar-col a {
+  color: rgba(244, 244, 245, 0.55) !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  transition: color 0.15s ease !important;
+}
+
+.footer-pillar-col a:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+html:not([data-theme='dark']) .footer-pillar-col a {
+  color: #5f5f65 !important;
+}
+
+html:not([data-theme='dark']) .footer-pillar-col a:hover {
+  color: #0a0a0a !important;
+}
+
+/* ─── 18. Site Footer ────────────────────────────────────────────────────── */
+.site-foot {
+  background: #0a0a0a !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+html:not([data-theme='dark']) .site-foot {
+  background: rgba(255, 255, 255, 0.60) !important;
+  border-top-color: rgba(10, 10, 10, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.site-foot .brand-inline {
+  color: rgba(244, 244, 245, 0.75) !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+}
+
+html:not([data-theme='dark']) .site-foot .brand-inline {
+  color: #0a0a0a !important;
+}
+
+/* ─── 19. Dashboard Library Cards — Dark ─────────────────────────────────── */
 .library li {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
-  border-radius: 20px !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  box-shadow: var(--m-card-shadow) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, transform 0.2s var(--m-ease) !important;
 }
 
 .library li:hover {
-  transform: translateY(-4px) !important;
-  border-color: rgba(124, 58, 237, 0.30) !important;
-  box-shadow: 0 12px 32px -6px rgba(124, 58, 237, 0.20) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6) !important;
 }
 
-/* ─── 18. Progress Bar — gradient fill ───────────────────────────────────── */
+html:not([data-theme='dark']) .library li {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
+}
+
+/* ─── 20. Progress Bar — Blue fill ───────────────────────────────────────── */
 .bar {
-  border: 1.5px solid rgba(124, 58, 237, 0.25) !important;
-  border-radius: 999px !important;
-  background: rgba(124, 58, 237, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .bar i {
-  background: var(--m-grad-brand) !important;
-  border-radius: 999px !important;
+  background: #2f6bff !important;
 }
 
-/* ─── 19. Modal Cards — glassmorphic ─────────────────────────────────────── */
+/* ─── 21. Modal Cards ────────────────────────────────────────────────────── */
 .modal-card {
-  background: rgba(255, 255, 255, 0.90) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.18) !important;
-  border-radius: 24px !important;
-  box-shadow: 0 20px 60px -12px rgba(0,0,0,0.25), 0 0 40px rgba(124, 58, 237, 0.10) !important;
-  backdrop-filter: blur(20px) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.80) !important;
+  backdrop-filter: none !important;
 }
 
-html[data-theme='dark'] .modal-card {
-  background: rgba(10, 8, 20, 0.90) !important;
-  border-color: rgba(124, 58, 237, 0.30) !important;
-  box-shadow: 0 20px 60px -12px rgba(0,0,0,0.60), 0 0 50px rgba(124, 58, 237, 0.20) !important;
+html:not([data-theme='dark']) .modal-card {
+  background: #ffffff !important;
+  border-color: rgba(10, 10, 10, 0.09) !important;
+  box-shadow: var(--m-lift) !important;
 }
 
-/* ─── 20. Auth Pages — centered glass card ───────────────────────────────── */
-.auth {
-  position: relative !important;
-}
-
-.auth::before {
-  content: '';
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.10) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
-
+/* ─── 22. Auth Pages ─────────────────────────────────────────────────────── */
 input, select {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.18) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(8px) !important;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+  color: #f4f4f5 !important;
+  backdrop-filter: none !important;
+  transition: border-color 0.15s ease !important;
 }
 
 input:focus, select:focus {
-  border-color: var(--m-purple) !important;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12) !important;
+  border-color: rgba(47, 107, 255, 0.60) !important;
+  box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.15) !important;
   outline: none !important;
 }
 
-html[data-theme='dark'] input,
-html[data-theme='dark'] select {
-  background: rgba(17, 13, 30, 0.85) !important;
-  border-color: rgba(124, 58, 237, 0.25) !important;
+html:not([data-theme='dark']) input,
+html:not([data-theme='dark']) select {
+  background: #ffffff !important;
+  border-color: rgba(10, 10, 10, 0.14) !important;
+  color: #0a0a0a !important;
 }
 
-html[data-theme='dark'] input:focus,
-html[data-theme='dark'] select:focus {
-  border-color: var(--m-purple-light) !important;
-  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15) !important;
+html:not([data-theme='dark']) input:focus,
+html:not([data-theme='dark']) select:focus {
+  border-color: rgba(47, 107, 255, 0.50) !important;
+  box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.10) !important;
 }
 
-/* ─── 21. Hero Demo instant bar ──────────────────────────────────────────── */
-.hero-demo-instant-bar {
-  background: rgba(255, 255, 255, 0.80) !important;
-  border: 1px solid rgba(124, 58, 237, 0.18) !important;
-  backdrop-filter: blur(10px) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.10) !important;
-}
-
-html[data-theme='dark'] .hero-demo-instant-bar {
-  background: rgba(17, 13, 30, 0.80) !important;
-  border-color: rgba(124, 58, 237, 0.25) !important;
-}
-
-/* ─── 22. Plan price amounts — gradient text ─────────────────────────────── */
-.plan-price strong,
-.plan-price .plan-current-amount {
-  background: var(--m-grad-brand) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-}
-
-/* ─── 23. Comparison table — glass ──────────────────────────────────────── */
-.comparison-wrap {
-  background: var(--m-card-bg) !important;
-  border: 1.5px solid var(--m-card-border) !important;
-  border-radius: 20px !important;
-  backdrop-filter: blur(14px) !important;
-  box-shadow: var(--m-card-shadow) !important;
-  box-shadow: none !important;
-}
-
-/* ─── 24. Theme Toggle — gradient ring ───────────────────────────────────── */
+/* ─── 23. Theme Toggle — Dark Glass ─────────────────────────────────────── */
 .theme-toggle {
-  background: rgba(255, 255, 255, 0.90) !important;
-  border: 2px solid rgba(124, 58, 237, 0.30) !important;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.20) !important;
-  backdrop-filter: blur(10px) !important;
-}
-
-html[data-theme='dark'] .theme-toggle {
-  background: rgba(17, 13, 30, 0.90) !important;
-  border-color: rgba(167, 139, 250, 0.40) !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 0 12px rgba(124, 58, 237, 0.25) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: #f4f4f5 !important;
 }
 
 .theme-toggle:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.30) !important;
-  border-color: rgba(124, 58, 237, 0.50) !important;
+  background: #111114 !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important;
 }
 
-/* ─── 25. Wensity orbit buttons — gradient inner ─────────────────────────── */
+html:not([data-theme='dark']) .theme-toggle {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(10, 10, 10, 0.14) !important;
+  color: #0a0a0a !important;
+  box-shadow: var(--m-lift-sm) !important;
+}
+
+/* ─── 24. Wensity Orbit Buttons — Blue ──────────────────────────────────── */
 .wensity-orbit-primary .wensity-orbit-inner {
-  background: var(--m-grad-cta) !important;
-  border-color: transparent !important;
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.40) !important;
+  background: #2448ff !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 8px 32px rgba(36, 72, 255, 0.40) !important;
 }
 
-.wensity-orbit-btn:hover .wensity-orbit-primary .wensity-orbit-inner,
 .wensity-orbit-btn:hover .wensity-orbit-inner {
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.55) !important;
+  box-shadow: 0 12px 40px rgba(36, 72, 255, 0.55) !important;
 }
 
-/* ─── 26. Hero CTA input / generate section ──────────────────────────────── */
-.hero-url-form {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.20) !important;
-  border-radius: 999px !important;
-  backdrop-filter: blur(10px) !important;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+/* ─── 25. Hero Demo instant bar ──────────────────────────────────────────── */
+.hero-demo-instant-bar {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 10px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  color: rgba(244, 244, 245, 0.70) !important;
 }
 
-html[data-theme='dark'] .hero-url-form {
-  background: rgba(17, 13, 30, 0.85) !important;
-  border-color: rgba(167, 139, 250, 0.25) !important;
+.hero-demo-instant-bar:hover {
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
 }
 
-/* ─── 27. Legal Pages — glass card ──────────────────────────────────────── */
-.legal-section {
-  background: transparent !important;
+html:not([data-theme='dark']) .hero-demo-instant-bar {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(10, 10, 10, 0.09) !important;
+  color: #3a3a3f !important;
 }
 
+/* ─── 26. Hero Demo Visual Card  ────────────────────────────────────────── */
+.hero-demo .vv {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.70) !important;
+}
+
+/* ─── 27. Muted text global ─────────────────────────────────────────────── */
+.muted { color: rgba(244, 244, 245, 0.54) !important; }
+html:not([data-theme='dark']) .muted { color: #5f5f65 !important; }
+
+/* ─── 28. Legal pages (glass card body on dark background) ──────────────── */
 .legal-body {
-  background: var(--m-card-bg) !important;
-  border: 1px solid var(--m-card-border) !important;
-  border-radius: 24px !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  backdrop-filter: none !important;
   padding: 0 32px !important;
-  box-shadow: var(--m-card-shadow) !important;
 }
 
-html[data-theme='dark'] .legal-body {
-  background: rgba(10, 8, 20, 0.70) !important;
+html:not([data-theme='dark']) .legal-body {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
 }
 
-/* ─── 28. Chip / plan-tag badges ─────────────────────────────────────────── */
-.plan-tag {
-  background: var(--m-grad-warm) !important;
-  border: none !important;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.30) !important;
+.legal-section h2 { color: #f4f4f5 !important; }
+.legal-section p, .legal-section li { color: rgba(244, 244, 245, 0.62) !important; }
+.legal-hero h1 { color: #f4f4f5 !important; }
+.legal-updated { color: rgba(244, 244, 245, 0.46) !important; }
+
+html:not([data-theme='dark']) .legal-section h2 { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .legal-section p,
+html:not([data-theme='dark']) .legal-section li { color: #5f5f65 !important; }
+html:not([data-theme='dark']) .legal-hero h1 { color: #0a0a0a !important; }
+html:not([data-theme='dark']) .legal-updated { color: #5f5f65 !important; }
+
+/* ─── 29. Comparison Table — Dark ───────────────────────────────────────── */
+.comparison-wrap {
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
-.plan-tag-value {
-  background: var(--m-grad-green) !important;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.30) !important;
+html:not([data-theme='dark']) .comparison-wrap {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: var(--m-lift-sm) !important;
 }
 
-/* ─── 29. Smooth global transitions ─────────────────────────────────────── */
-* {
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-/* ─── 30. Scrollbar — mailient thin purple ───────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+/* ─── 30. Scrollbar — Mailient minimal ───────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.30); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.55); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.30); }
 
-/* ─── 31. Glass Guest Banner on summary page ─────────────────────────────── */
-.dash > div[style*="background: var(--paper)"] {
-  background: var(--m-card-bg) !important;
-  border: 1.5px solid rgba(124, 58, 237, 0.20) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(10px) !important;
+html:not([data-theme='dark']) ::-webkit-scrollbar-thumb { background: rgba(10, 10, 10, 0.15); }
+html:not([data-theme='dark']) ::-webkit-scrollbar-thumb:hover { background: rgba(10, 10, 10, 0.35); }
+
+/* ─── 31. Hero padding adjustment (account for fixed navbar) ─────────────── */
+.hero {
+  margin-top: 0 !important;
 }
 
-/* ─── 32. Mobile — ensure glass effects don't hurt performance ───────────── */
+/* ─── 32. Mobile — floating pill navbar collapses ────────────────────────── */
 @media (max-width: 768px) {
+  .nav {
+    width: calc(100% - 24px) !important;
+    top: 10px !important;
+    padding: 0 14px !important;
+    height: 48px !important;
+  }
+
+  .nav-links {
+    gap: 12px !important;
+  }
+
+  .hero {
+    padding-top: clamp(80px, 12vw, 120px) !important;
+  }
+
   .stat-pill {
+    flex: 1 1 calc(50% - 6px) !important;
     max-width: 100% !important;
-    flex: 1 1 calc(50% - 8px) !important;
   }
+
   .final {
-    margin: 20px clamp(12px, 3vw, 24px) !important;
+    margin: 20px 12px !important;
   }
+
   .legal-body {
     padding: 0 16px !important;
   }
 }
 
 @media (max-width: 480px) {
+  .nav {
+    width: calc(100% - 16px) !important;
+  }
+
   .stat-pill {
     flex: 1 1 100% !important;
-    max-width: 100% !important;
   }
-  /* Reduce blur on very small screens for performance */
-  .nav, .plan, .info-card, .vv, .modal-card {
-    backdrop-filter: blur(8px) !important;
+}
+
+/* ─── 33. Pricing trust items ────────────────────────────────────────────── */
+.pricing-trust-item {
+  color: rgba(244, 244, 245, 0.55) !important;
+}
+
+html:not([data-theme='dark']) .pricing-trust-item {
+  color: #5f5f65 !important;
+}
+
+/* ─── 34. Section lead paragraph ─────────────────────────────────────────── */
+.section-lead {
+  color: rgba(244, 244, 245, 0.62) !important;
+}
+
+html:not([data-theme='dark']) .section-lead {
+  color: #5f5f65 !important;
+}
+
+/* ─── 35. Step numbers — dark circle ─────────────────────────────────────── */
+.step-num {
+  background: #0c0c0e !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+html:not([data-theme='dark']) .step-num {
+  background: #ffffff !important;
+  border-color: rgba(10, 10, 10, 0.20) !important;
+  color: #0a0a0a !important;
+  box-shadow: var(--m-lift-sm) !important;
+}
+
+/* ─── 36. Blue accent color sync ─────────────────────────────────────────── */
+a { color: #2f6bff !important; }
+html:not([data-theme='dark']) a { color: #2448ff !important; }
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   37. NUCLEAR KILL-SWITCH — Eliminate ALL neo-brutalist offset box-shadows
+   This runs last in the cascade and wins over every earlier rule.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Kill every element that might still carry a 4px/6px offset shadow */
+.stat-pill,
+.info-card,
+.step-detailed,
+.comparison-wrap,
+.plan,
+.plan:not(.plan-hot),
+.faq details,
+.final,
+.podcast-showcase,
+.podcast-timeline-item,
+.ticker-item,
+.pricing-trust-item,
+.hero-floating-badge,
+.hero-pill,
+.card-icon-wrap,
+.seg,
+.hero-generator-box,
+.vv,
+.vv-card,
+.answer-box,
+.answer-badge,
+.modal-card,
+.library li {
+  /* Reset any surviving neo-brutalist offset */
+  box-shadow: none !important;
+}
+
+/* Re-grant ONLY mailient-style shadows for elements that need depth */
+.info-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+}
+.plan:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+}
+.plan-hot {
+  box-shadow: 0 0 0 1px rgba(47,107,255,0.10), 0 20px 50px rgba(0,0,0,0.5) !important;
+}
+.plan-hot:hover {
+  box-shadow: 0 0 0 1px rgba(47,107,255,0.25), 0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(47,107,255,0.15) !important;
+}
+.stat-pill:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+}
+.vv {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+}
+.modal-card {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.80) !important;
+}
+.final {
+  box-shadow: 0 0 60px rgba(47,107,255,0.08) !important;
+}
+
+/* Light mode card shadows (rim-light glass style) */
+html:not([data-theme='dark']) .info-card,
+html:not([data-theme='dark']) .plan,
+html:not([data-theme='dark']) .faq details,
+html:not([data-theme='dark']) .stat-pill {
+  box-shadow: var(--m-lift-sm), var(--m-rim-light) !important;
+}
+
+/* Nav stays with its proper mailient shadow */
+.nav {
+  box-shadow: var(--m-nav-shadow), var(--m-nav-inset-d) !important;
+}
+html:not([data-theme='dark']) .nav {
+  box-shadow: var(--m-nav-shadow), var(--m-nav-inset-l) !important;
+}
+
+/* Btn-primary glass shadow */
+.btn-primary {
+  box-shadow: var(--m-btn-glass) !important;
+}
+
+/* ── 38. Final body background override — always pure black in dark mode ── */
+html[data-theme='dark'] body,
+body {
+  background-color: #000000 !important;
+  background-image:
+    radial-gradient(ellipse at 50% 0%,   rgba(47, 107, 255, 0.07) 0px, transparent 55%),
+    radial-gradient(ellipse at 15% 30%,  rgba(36, 72, 255, 0.05)  0px, transparent 50%),
+    radial-gradient(ellipse at 85% 70%,  rgba(16, 185, 129, 0.03) 0px, transparent 50%) !important;
+  background-size: 100% 100%, 100% 100%, 100% 100% !important;
+  background-attachment: fixed !important;
+  color: #f4f4f5 !important;
+}
+
+html:not([data-theme='dark']) body {
+  background-color: #f3f3f5 !important;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.90) 0px, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(220,220,230,0.70) 0px, transparent 50%) !important;
+  background-size: 100% 100%, 100% 100% !important;
+  color: #0a0a0a !important;
+}
+
+/* ── 39. Silver gradient headings in dark mode ───────────────────────────── */
+html[data-theme='dark'] .hero h1,
+html[data-theme='dark'] .hero-copy h1,
+html[data-theme='dark'] .section h2,
+html[data-theme='dark'] .final h2,
+html[data-theme='dark'] .upgrade h2,
+html[data-theme='dark'] .lib-title {
+  background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 50%, #939393 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ── 40. Nav position override — floating pill always wins ───────────────── */
+.nav {
+  position: fixed !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 48px) !important;
+  max-width: 1024px !important;
+  border-radius: 999px !important;
+  height: 54px !important;
+  z-index: 999 !important;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    width: calc(100% - 24px) !important;
+    top: 10px !important;
+    height: 48px !important;
   }
+}
+
+/* ── 41. Quick-sample chips — mailient style ─────────────────────────────── */
+.quick-sample-chip {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: rgba(244,244,245,0.70) !important;
+  box-shadow: none !important;
+  border-style: solid !important;
+}
+
+.quick-sample-chip:hover {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(47,107,255,0.40) !important;
+  color: #6b9eff !important;
+  box-shadow: none !important;
+}
+
+html:not([data-theme='dark']) .quick-sample-chip {
+  background: rgba(255,255,255,0.78) !important;
+  border-color: rgba(10,10,10,0.14) !important;
+  color: #3a3a3f !important;
+}
+
+/* ── 42. Hero generator box — mailient dark glass ────────────────────────── */
+.hero-generator-box,
+.hero-generator-box.glass-hero-card {
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6) !important;
+}
+
+html:not([data-theme='dark']) .hero-generator-box,
+html:not([data-theme='dark']) .hero-generator-box.glass-hero-card {
+  background: rgba(255,255,255,0.90) !important;
+  border-color: rgba(10,10,10,0.09) !important;
+  box-shadow: var(--m-lift), var(--m-rim-light) !important;
+}
+
+/* ── 43. Seg switcher — dark glass ──────────────────────────────────────── */
+.seg {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+html:not([data-theme='dark']) .seg {
+  background: rgba(10,10,10,0.04) !important;
+  border-color: rgba(10,10,10,0.10) !important;
+}
+
+/* ── 44. Step numbers — dark circle ─────────────────────────────────────── */
+.step-num {
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+html:not([data-theme='dark']) .step-num {
+  background: #ffffff !important;
+  border-color: rgba(10,10,10,0.20) !important;
+  color: #0a0a0a !important;
+  box-shadow: var(--m-lift-sm) !important;
+}
+
+/* ── 45. Pricing trust items — hidden completely per user request ─────────── */
+.pricing-trust-item {
+  display: none !important;
+}
+
+/* ── 46. Card-icon-wrap — mailient dark circle ───────────────────────────── */
+.card-icon-wrap {
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  box-shadow: none !important;
+}
+
+/* ── 47. Hero floating badges — mailient glassmorphic ────────────────────── */
+.hero-floating-badge {
+  background: #0c0c0e !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+}
+
+html:not([data-theme='dark']) .hero-floating-badge {
+  background: rgba(255,255,255,0.90) !important;
+  border-color: rgba(10,10,10,0.14) !important;
+  box-shadow: var(--m-lift-sm) !important;
+}
+
+/* ── 48. Hero CTA glow button — mailient style ───────────────────────────── */
+.hero-cta-glow {
+  box-shadow: 0 8px 24px -4px rgba(47,107,255,0.40) !important;
+}
+
+.hero-cta-glow:hover:not(:disabled) {
+  box-shadow: 0 14px 30px -4px rgba(47,107,255,0.55) !important;
+}
+
+/* ── 49. Focus ring — mailient blue ──────────────────────────────────────── */
+.hero-copy form input[type="url"]:focus {
+  border-color: rgba(47,107,255,0.60) !important;
+  box-shadow: 0 0 0 3px rgba(47,107,255,0.15) !important;
+}
+
+/* ── 50. Giant watermark footer text — mailient style ────────────────────── */
+.vv-footer-watermark {
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.025);
+  text-align: center;
+  overflow: hidden;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  margin: 24px 0 0;
+  font-family: 'Satoshi', 'Figtree', sans-serif;
+}
+
+html:not([data-theme='dark']) .vv-footer-watermark {
+  color: rgba(10,10,10,0.035);
 }
