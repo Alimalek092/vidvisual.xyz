@@ -43,6 +43,10 @@ export default function sitemap() {
     // 5. User Onboarding & Auth
     { path: '/register', priority: 0.85, changeFrequency: 'weekly' },
     { path: '/login', priority: 0.60, changeFrequency: 'monthly' },
+
+    // 6. Legal
+    { path: '/privacy', priority: 0.50, changeFrequency: 'yearly' },
+    { path: '/terms', priority: 0.50, changeFrequency: 'yearly' },
   ];
 
   return routes.map((r) => ({

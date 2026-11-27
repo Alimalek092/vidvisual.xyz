@@ -915,6 +915,95 @@ html[data-theme='dark'] .vv-timestamp-chip:hover {
 
 
 /* ========================================================================
+   LEGAL PAGES (Privacy Policy & Terms of Service)
+   ======================================================================== */
+.legal-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 32px) 80px;
+}
+.legal-hero {
+  text-align: center;
+  padding: clamp(32px, 6vw, 64px) 0 24px;
+}
+.legal-hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  margin: 10px 0 6px;
+  line-height: 1.1;
+}
+.legal-updated {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin: 0;
+}
+.legal-body {
+  margin-top: 32px;
+  display: grid;
+  gap: 0;
+}
+.legal-section {
+  padding: 24px 0;
+  border-bottom: 1.5px solid var(--line);
+}
+.legal-section:last-child {
+  border-bottom: none;
+}
+.legal-section h2 {
+  font-family: var(--font-hand);
+  font-size: 1.55rem;
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-weight: 400;
+}
+.legal-section p {
+  margin: 0 0 10px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  font-size: 0.97rem;
+}
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section ul {
+  margin: 0 0 10px;
+  padding-left: 20px;
+  display: grid;
+  gap: 7px;
+}
+.legal-section ul li {
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+.legal-section a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal-section strong { color: var(--ink); }
+.legal-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin: 36px 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+.legal-footer-links a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: opacity 0.12s;
+}
+.legal-footer-links a:hover { opacity: 0.75; text-decoration: underline; }
+.legal-footer-links span { color: var(--ink-soft); }
+
+/* Foot links (also used in footer of legal pages) */
+.foot-links { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 0.9rem; justify-content: center; }
+.foot-links a { color: var(--ink-soft); text-decoration: none; font-weight: 500; }
+.foot-links a:hover { color: var(--blue); text-decoration: underline; }
+
+/* ========================================================================
    CRITICAL MOBILE ZERO-OVERFLOW SAFEGUARD
    Guarantees zero horizontal scroll, zero lateral bleed, and perfect fit
    ======================================================================== */

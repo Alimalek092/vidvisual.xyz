@@ -347,6 +347,10 @@ export default function Home() {
             />
           </a>
         </div>
+        <div className="foot-links">
+          <Link href="/privacy">Privacy Policy</Link>
+          <Link href="/terms">Terms of Service</Link>
+        </div>
         <div id="support" className="foot-support">
           <a href="mailto:vidvisual.xyz@gmail.com?subject=Vid%20Visual%20Support%20Request">vidvisual.xyz@gmail.com</a>
         </div>

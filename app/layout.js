@@ -3,6 +3,7 @@ import './globals.css';
 import './motion-enhancements.css';
 import './premium-ui.css';
 import './wensity-ui.css';
+import './mailient-ui.css';
 
 import ThemeToggle from '@/components/ThemeToggle';
 import { Analytics } from '@vercel/analytics/next';
@@ -147,7 +148,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Figtree:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Caveat+Brush&family=Figtree:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
